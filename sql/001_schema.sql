@@ -103,3 +103,18 @@ CREATE TABLE IF NOT EXISTS player_efficiency (
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(player_id, season_id)
 );
+
+CREATE TABLE IF NOT EXISTS player_predictions (
+    prediction_id BIGSERIAL PRIMARY KEY,
+    player_id INTEGER REFERENCES players(player_id),
+    season_id INTEGER REFERENCES seasons(season_id),
+    pred_points DECIMAL(8,2),
+    pred_rebounds DECIMAL(8,2),
+    pred_assists DECIMAL(8,2),
+    trend_points DECIMAL(8,2),
+    trend_rebounds DECIMAL(8,2),
+    trend_assists DECIMAL(8,2),
+    model_type VARCHAR(50),
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(player_id, season_id)
+);
