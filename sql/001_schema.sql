@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS players (
 );
 
 CREATE TABLE IF NOT EXISTS games (
-    game_id VARCHAR(30) PRIMARY KEY,
+    game_id VARCHAR(30) NOT NULL,
     season_id INTEGER REFERENCES seasons(season_id),
     game_date DATE NOT NULL,
     team_id INTEGER REFERENCES teams(team_id),
@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS games (
     team_score INTEGER,
     opponent_score INTEGER,
     result VARCHAR(5),
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (game_id, team_id)
 );
 
 CREATE TABLE IF NOT EXISTS player_game_stats (
