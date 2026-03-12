@@ -15,7 +15,6 @@ https://statline99.streamlit.app/
 ## Player Analytics
 Analyze individual player performance with:
 
-- Player headshots
 - Game log trends
 - Rolling averages
 - Season averages
