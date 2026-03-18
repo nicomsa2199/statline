@@ -464,6 +464,49 @@ def prop_call(edge: float) -> str:
     return "No Edge"
 
 
+def get_team_recent_form(team_games_df: pd.DataFrame, n: int = 10) -> dict:
+    recent = team_games_df.sort_values("game_date", ascending=False).head(n).copy()
+
+    if recent.empty:
+        return {
+            "wins": 0,
+            "losses": 0,
+            "avg_for": 0.0,
+            "avg_against": 0.0,
+            "pace_proxy": 0.0,
+        }
+
+    wins = int((recent["result"] == "W").sum())
+    losses = int((recent["result"] == "L").sum())
+    avg_for = float(recent["team_score"].mean()) if recent["team_score"].notna().any() else 0.0
+    avg_against = float(recent["opponent_score"].mean()) if recent["opponent_score"].notna().any() else 0.0
+    pace_proxy = (
+        float((recent["team_score"] + recent["opponent_score"]).mean())
+        if recent["team_score"].notna().any() and recent["opponent_score"].notna().any()
+        else 0.0
+    )
+
+    return {
+        "wins": wins,
+        "losses": losses,
+        "avg_for": avg_for,
+        "avg_against": avg_against,
+        "pace_proxy": pace_proxy,
+    }
+
+
+def project_matchup_score(team_for, opp_against, pace_team, pace_opp, home_bonus=0.0):
+    base_score = (float(team_for) + float(opp_against)) / 2.0
+    avg_pace = (float(pace_team) + float(pace_opp)) / 2.0
+    pace_adjustment = (avg_pace - 225.0) * 0.05
+    return round(base_score + pace_adjustment + home_bonus, 1)
+
+
+def win_probability_from_scores(team_score, opp_score):
+    diff = float(team_score) - float(opp_score)
+    return 1 / (1 + math.exp(-diff / 4))
+
+
 def render_leaderboard(df: pd.DataFrame, stat_col: str, title: str):
     st.markdown(f'<div class="section-title">{title}</div>', unsafe_allow_html=True)
     st.markdown('<div class="leaderboard-list">', unsafe_allow_html=True)
@@ -593,7 +636,7 @@ def load_last_updated():
     return pd.read_sql(text(q), engine)
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
 def load_players():
     q = """
     SELECT DISTINCT p.player_id, p.full_name, t.team_abbreviation
@@ -605,7 +648,7 @@ def load_players():
     return pd.read_sql(text(q), engine)
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
 def load_teams():
     q = """
     SELECT DISTINCT t.team_id, t.team_name, t.team_abbreviation
@@ -616,7 +659,7 @@ def load_teams():
     return pd.read_sql(text(q), engine)
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
 def load_player_stats(player_id):
     q = """
     SELECT DISTINCT
@@ -641,7 +684,7 @@ def load_player_stats(player_id):
     return pd.read_sql(text(q), engine, params={"player_id": player_id}).drop_duplicates()
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
 def load_efficiency_leaders():
     q = """
     SELECT
@@ -658,7 +701,7 @@ def load_efficiency_leaders():
     return pd.read_sql(text(q), engine)
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
 def load_scoring_leaders():
     q = """
     SELECT
@@ -676,7 +719,7 @@ def load_scoring_leaders():
     return pd.read_sql(text(q), engine)
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
 def load_team_summary():
     q = """
     SELECT team_name, games_played, avg_points_for, avg_points_against, wins, losses
@@ -686,25 +729,29 @@ def load_team_summary():
     return pd.read_sql(text(q), engine)
 
 
-@st.cache_data(ttl=3600)
-def load_team_summary_with_abbrev():
+@st.cache_data(ttl=300)
+def load_matchup_team_context():
     q = """
-    SELECT t.team_id,
-           t.team_name,
-           t.team_abbreviation,
-           v.games_played,
-           v.avg_points_for,
-           v.avg_points_against,
-           v.wins,
-           v.losses
-    FROM v_team_summary v
-    JOIN teams t ON v.team_name = t.team_name
+    SELECT
+        t.team_id,
+        t.team_name,
+        t.team_abbreviation,
+        COUNT(g.game_id) AS games_played,
+        ROUND(AVG(g.team_score)::numeric, 2) AS avg_points_for,
+        ROUND(AVG(g.opponent_score)::numeric, 2) AS avg_points_against,
+        ROUND(AVG(g.team_score + g.opponent_score)::numeric, 2) AS pace_proxy,
+        SUM(CASE WHEN g.result = 'W' THEN 1 ELSE 0 END) AS wins,
+        SUM(CASE WHEN g.result = 'L' THEN 1 ELSE 0 END) AS losses
+    FROM teams t
+    JOIN games g
+        ON t.team_id = g.team_id
+    GROUP BY t.team_id, t.team_name, t.team_abbreviation
     ORDER BY t.team_name
     """
     return pd.read_sql(text(q), engine)
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
 def load_team_games(team_id):
     q = """
     SELECT DISTINCT
@@ -720,7 +767,7 @@ def load_team_games(team_id):
     return pd.read_sql(text(q), engine, params={"team_id": team_id}).drop_duplicates()
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
 def load_team_player_leaders(team_id):
     q = """
     SELECT
@@ -739,7 +786,7 @@ def load_team_player_leaders(team_id):
     return pd.read_sql(text(q), engine, params={"team_id": team_id})
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
 def load_team_recent_players(team_id):
     q = """
     SELECT
@@ -758,7 +805,7 @@ def load_team_recent_players(team_id):
     return pd.read_sql(text(q), engine, params={"team_id": team_id})
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
 def load_player_prediction(player_id):
     q = """
     SELECT
@@ -1189,9 +1236,9 @@ elif view == "League Leaders":
 
 elif view == "Matchup Comparison":
     teams = load_teams()
-    team_summary_df = load_team_summary_with_abbrev()
+    team_context_df = load_matchup_team_context()
 
-    if teams.empty or team_summary_df.empty:
+    if teams.empty or team_context_df.empty:
         st.error("No team data found.")
         st.stop()
 
@@ -1214,29 +1261,45 @@ elif view == "Matchup Comparison":
     team_a_abbrev = row_a["team_abbreviation"]
     team_b_abbrev = row_b["team_abbreviation"]
 
-    summary_a = team_summary_df.loc[team_summary_df["team_id"] == team_a_id].iloc[0]
-    summary_b = team_summary_df.loc[team_summary_df["team_id"] == team_b_id].iloc[0]
+    team_a_games = load_team_games(team_a_id)
+    team_b_games = load_team_games(team_b_id)
 
-    games_a = load_team_games(team_a_id)
-    games_b = load_team_games(team_b_id)
+    if team_a_games.empty or team_b_games.empty:
+        st.warning("Not enough game data for matchup comparison.")
+        st.stop()
 
-    a_last10_w, a_last10_l = get_recent_record(games_a, 10)
-    b_last10_w, b_last10_l = get_recent_record(games_b, 10)
+    context_a = team_context_df.loc[team_context_df["team_id"] == team_a_id].iloc[0]
+    context_b = team_context_df.loc[team_context_df["team_id"] == team_b_id].iloc[0]
 
-    a_net = float(summary_a["avg_points_for"] - summary_a["avg_points_against"])
-    b_net = float(summary_b["avg_points_for"] - summary_b["avg_points_against"])
+    recent_a = get_team_recent_form(team_a_games, n=10)
+    recent_b = get_team_recent_form(team_b_games, n=10)
 
-    proj_a = projected_team_score(summary_a["avg_points_for"], summary_b["avg_points_against"])
-    proj_b = projected_team_score(summary_b["avg_points_for"], summary_a["avg_points_against"])
+    team_a_for = 0.6 * recent_a["avg_for"] + 0.4 * float(context_a["avg_points_for"])
+    team_a_against = 0.6 * recent_a["avg_against"] + 0.4 * float(context_a["avg_points_against"])
+    team_a_pace = 0.6 * recent_a["pace_proxy"] + 0.4 * float(context_a["pace_proxy"])
 
-    a_win_prob = win_probability_from_net(a_net - b_net)
+    team_b_for = 0.6 * recent_b["avg_for"] + 0.4 * float(context_b["avg_points_for"])
+    team_b_against = 0.6 * recent_b["avg_against"] + 0.4 * float(context_b["avg_points_against"])
+    team_b_pace = 0.6 * recent_b["pace_proxy"] + 0.4 * float(context_b["pace_proxy"])
+
+    proj_a = project_matchup_score(team_a_for, team_b_against, team_a_pace, team_b_pace, home_bonus=2.0)
+    proj_b = project_matchup_score(team_b_for, team_a_against, team_b_pace, team_a_pace, home_bonus=0.0)
+
+    a_win_prob = win_probability_from_scores(proj_a, proj_b)
     b_win_prob = 1 - a_win_prob
+
+    net_a = round(team_a_for - team_a_against, 1)
+    net_b = round(team_b_for - team_b_against, 1)
 
     header1, header2, header3 = st.columns([2, 1, 2])
 
     with header1:
         st.image(get_team_logo(team_a_abbrev), width=110)
         st.markdown(f'<div class="section-title">{team_a_name}</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="hero-subtitle-secondary" style="text-align:left;">Home • Last 10: {recent_a["wins"]}-{recent_a["losses"]}</div>',
+            unsafe_allow_html=True,
+        )
 
     with header2:
         st.markdown('<div class="section-title" style="text-align:center; margin-top:2rem;">VS</div>', unsafe_allow_html=True)
@@ -1244,8 +1307,12 @@ elif view == "Matchup Comparison":
     with header3:
         st.image(get_team_logo(team_b_abbrev), width=110)
         st.markdown(f'<div class="section-title">{team_b_name}</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="hero-subtitle-secondary" style="text-align:left;">Away • Last 10: {recent_b["wins"]}-{recent_b["losses"]}</div>',
+            unsafe_allow_html=True,
+        )
 
-    st.markdown('<div class="section-title">Projected Matchup</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Projected Matchup Output</div>', unsafe_allow_html=True)
 
     m1, m2, m3, m4 = st.columns(4)
     matchup_cards = [
@@ -1267,31 +1334,66 @@ elif view == "Matchup Comparison":
                 unsafe_allow_html=True,
             )
 
-    st.markdown('<div class="section-title">Team Comparison</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Context Drivers</div>', unsafe_allow_html=True)
+
+    context_col1, context_col2, context_col3, context_col4 = st.columns(4)
+    context_metrics = [
+        (context_col1, net_a, f"{team_a_abbrev} Net Form"),
+        (context_col2, net_b, f"{team_b_abbrev} Net Form"),
+        (context_col3, (team_a_pace + team_b_pace) / 2, "Matchup Pace Proxy"),
+        (context_col4, abs(proj_a - proj_b), "Projected Margin"),
+    ]
+
+    for col, value, label in context_metrics:
+        with col:
+            st.markdown(
+                f"""
+                <div class="projection-card">
+                    <div class="subtle-label">{label}</div>
+                    <div class="metric-value">{safe_metric(value, 1)}</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
     left, right = st.columns(2)
 
     with left:
         st.markdown('<div class="panel">', unsafe_allow_html=True)
-        st.markdown(f"### {team_a_name}")
-        st.write(f"Record: {int(summary_a['wins'])}-{int(summary_a['losses'])}")
-        st.write(f"Last 10: {a_last10_w}-{a_last10_l}")
-        st.write(f"Avg Points For: {safe_metric(summary_a['avg_points_for'], 1)}")
-        st.write(f"Avg Points Against: {safe_metric(summary_a['avg_points_against'], 1)}")
-        st.write(f"Net Rating Proxy: {safe_metric(a_net, 1)}")
         render_team_player_cards(load_team_recent_players(team_a_id), f"{team_a_name} Top Players")
         st.markdown("</div>", unsafe_allow_html=True)
 
     with right:
         st.markdown('<div class="panel">', unsafe_allow_html=True)
-        st.markdown(f"### {team_b_name}")
-        st.write(f"Record: {int(summary_b['wins'])}-{int(summary_b['losses'])}")
-        st.write(f"Last 10: {b_last10_w}-{b_last10_l}")
-        st.write(f"Avg Points For: {safe_metric(summary_b['avg_points_for'], 1)}")
-        st.write(f"Avg Points Against: {safe_metric(summary_b['avg_points_against'], 1)}")
-        st.write(f"Net Rating Proxy: {safe_metric(b_net, 1)}")
         render_team_player_cards(load_team_recent_players(team_b_id), f"{team_b_name} Top Players")
         st.markdown("</div>", unsafe_allow_html=True)
+
+    chart_df = pd.DataFrame(
+        {
+            "team": [team_a_abbrev, team_b_abbrev],
+            "projected_score": [proj_a, proj_b],
+        }
+    )
+
+    st.markdown('<div class="panel">', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Projected Score Comparison</div>', unsafe_allow_html=True)
+
+    fig = px.bar(
+        chart_df,
+        x="team",
+        y="projected_score",
+        text="projected_score",
+    )
+    fig.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font_color="#f3f4f6",
+        margin=dict(l=20, r=20, t=20, b=20),
+        xaxis_title="",
+        yaxis_title="",
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown(
     '<div class="footer-note">StatLine • The Pulse of the Game</div>',

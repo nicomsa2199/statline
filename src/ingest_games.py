@@ -306,7 +306,7 @@ def load_team_games_and_player_logs(
 
             logs["player_id"] = int(player_id)
             logs["game_id"] = logs["Game_ID"].astype(str)
-            logs["minutes"] = None
+            logs["minutes"] = pd.to_numeric(logs["MIN"], errors="coerce") if "MIN" in logs.columns else None
             logs["points"] = logs["PTS"]
             logs["rebounds"] = logs["REB"]
             logs["assists"] = logs["AST"]
