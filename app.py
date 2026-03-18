@@ -217,12 +217,13 @@ def inject_css():
             margin-top: 0.6rem;
         }
 
-        .stRadio label, .stSelectbox label {
+        .stRadio label, .stSelectbox label, .stNumberInput label {
             color: #d8dde6 !important;
             font-weight: 600 !important;
         }
 
-        div[data-baseweb="select"] > div {
+        div[data-baseweb="select"] > div,
+        div[data-baseweb="input"] > div {
             background-color: rgba(255,255,255,0.06) !important;
             border: 1px solid rgba(255,255,255,0.10) !important;
             border-radius: 14px !important;
@@ -435,33 +436,25 @@ def filter_by_window(df: pd.DataFrame, mode: str = "Season") -> pd.DataFrame:
     return df
 
 
-def get_recent_record(team_games_df: pd.DataFrame, n: int = 10) -> tuple[int, int]:
-    recent = team_games_df.sort_values("game_date", ascending=False).head(n)
-    wins = int((recent["result"] == "W").sum())
-    losses = int((recent["result"] == "L").sum())
-    return wins, losses
-
-
-def projected_team_score(avg_for, opp_avg_against) -> float:
-    if pd.isna(avg_for) or pd.isna(opp_avg_against):
-        return 0.0
-    return round((float(avg_for) + float(opp_avg_against)) / 2, 1)
-
-
-def win_probability_from_net(net_diff: float) -> float:
-    return 1 / (1 + math.exp(-net_diff / 4))
-
-
 def prop_call(edge: float) -> str:
-    if edge >= 2:
+    if edge >= 5:
         return "Strong Over"
-    if edge >= 0.75:
+    if edge >= 2:
         return "Lean Over"
-    if edge <= -2:
+    if edge <= -5:
         return "Strong Under"
-    if edge <= -0.75:
+    if edge <= -2:
         return "Lean Under"
     return "No Edge"
+
+
+def prop_confidence(edge: float) -> str:
+    abs_edge = abs(edge)
+    if abs_edge >= 6:
+        return "High"
+    if abs_edge >= 3:
+        return "Medium"
+    return "Low"
 
 
 def get_team_recent_form(team_games_df: pd.DataFrame, n: int = 10) -> dict:
@@ -625,6 +618,100 @@ def render_team_rankings(df: pd.DataFrame, teams_df: pd.DataFrame, title: str = 
             """,
             unsafe_allow_html=True,
         )
+
+
+def render_prop_cards(df: pd.DataFrame, top_n: int = 5):
+    st.markdown('<div class="leaderboard-list">', unsafe_allow_html=True)
+
+    for rank, (_, row) in enumerate(df.head(top_n).iterrows(), start=1):
+        player_id = int(row["player_id"])
+        team_abbrev = row["team_abbreviation"] if pd.notna(row["team_abbreviation"]) else ""
+        projection = float(row["projection"]) if pd.notna(row["projection"]) else 0.0
+        line_value = float(row["line_value"]) if pd.notna(row["line_value"]) else 0.0
+        edge = float(row["edge"]) if pd.notna(row["edge"]) else 0.0
+        call = prop_call(edge)
+
+        logo_html = f'<img class="leader-logo" src="{get_team_logo(team_abbrev)}" />' if team_abbrev else ""
+
+        st.markdown(
+            f"""
+            <div class="leader-row">
+                <div class="leader-left">
+                    <div class="leader-rank">#{rank}</div>
+                    <img class="leader-headshot" src="{get_player_headshot(player_id)}" />
+                    <div class="leader-name-wrap">
+                        <div class="leader-name">{row['full_name']}</div>
+                        <div class="leader-team">{team_abbrev} • {row['stat_type']} • {row['sportsbook']}</div>
+                    </div>
+                    {logo_html}
+                </div>
+                <div class="leader-stat" style="font-size:1rem; text-align:right;">
+                    {call}<br>
+                    <span style="font-size:0.9rem; color:#b7bfcb;">
+                        Line: {line_value:.1f} • Proj: {projection:.1f} • Edge: {edge:+.1f}
+                    </span>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+def render_full_prop_board(df: pd.DataFrame):
+    st.markdown('<div class="leaderboard-list">', unsafe_allow_html=True)
+
+    for _, row in df.iterrows():
+        player_id = int(row["player_id"])
+        team_abbrev = row["team_abbreviation"] if pd.notna(row["team_abbreviation"]) else ""
+        projection = float(row["projection"]) if pd.notna(row["projection"]) else 0.0
+        line_value = float(row["line_value"]) if pd.notna(row["line_value"]) else 0.0
+        edge = float(row["edge"]) if pd.notna(row["edge"]) else 0.0
+        call = prop_call(edge)
+        confidence = prop_confidence(edge)
+
+        logo_html = f'<img class="leader-logo" src="{get_team_logo(team_abbrev)}" />' if team_abbrev else ""
+
+        st.markdown(
+            f"""
+            <div class="leader-row">
+                <div class="leader-left">
+                    <img class="leader-headshot" src="{get_player_headshot(player_id)}" />
+                    <div class="leader-name-wrap">
+                        <div class="leader-name">{row['full_name']}</div>
+                        <div class="leader-team">{team_abbrev} • {row['stat_type']} • {row['sportsbook']}</div>
+                    </div>
+                    {logo_html}
+                </div>
+                <div style="display:flex; gap:1.5rem; align-items:center; flex-wrap:wrap; justify-content:flex-end;">
+                    <div class="team-rank-stat">
+                        <div class="team-rank-stat-value">{line_value:.1f}</div>
+                        <div class="team-rank-stat-label">Line</div>
+                    </div>
+                    <div class="team-rank-stat">
+                        <div class="team-rank-stat-value">{projection:.1f}</div>
+                        <div class="team-rank-stat-label">Projection</div>
+                    </div>
+                    <div class="team-rank-stat">
+                        <div class="team-rank-stat-value">{edge:+.1f}</div>
+                        <div class="team-rank-stat-label">Edge</div>
+                    </div>
+                    <div class="team-rank-stat">
+                        <div class="team-rank-stat-value">{confidence}</div>
+                        <div class="team-rank-stat-label">Confidence</div>
+                    </div>
+                    <div class="team-rank-stat">
+                        <div class="team-rank-stat-value" style="font-size:0.95rem;">{call}</div>
+                        <div class="team-rank-stat-label">Recommendation</div>
+                    </div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
 @st.cache_data(ttl=300)
@@ -809,19 +896,100 @@ def load_team_recent_players(team_id):
 def load_player_prediction(player_id):
     q = """
     SELECT
-        pred_points,
-        pred_rebounds,
-        pred_assists,
-        trend_points,
-        trend_rebounds,
-        trend_assists
-    FROM player_predictions
-    WHERE player_id = :player_id
+        pp.pred_points,
+        pp.pred_rebounds,
+        pp.pred_assists,
+        pp.trend_points,
+        pp.trend_rebounds,
+        pp.trend_assists,
+        pi.status
+    FROM player_predictions pp
+    LEFT JOIN player_injuries pi
+        ON pp.player_id = pi.player_id
+    WHERE pp.player_id = :player_id
     """
     try:
         return pd.read_sql(text(q), engine, params={"player_id": player_id})
     except Exception:
         return pd.DataFrame()
+
+
+@st.cache_data(ttl=300)
+def load_team_injury_impact():
+    q = """
+    SELECT
+        p.team_id,
+        COUNT(*) AS injured_players,
+        SUM(
+            CASE
+                WHEN pi.status = 'OUT' THEN 1
+                WHEN pi.status = 'QUESTIONABLE' THEN 0.5
+                ELSE 0
+            END
+        ) AS injury_penalty
+    FROM player_injuries pi
+    JOIN players p
+        ON pi.player_id = p.player_id
+    GROUP BY p.team_id
+    """
+    try:
+        return pd.read_sql(text(q), engine)
+    except Exception:
+        return pd.DataFrame(columns=["team_id", "injured_players", "injury_penalty"])
+
+
+@st.cache_data(ttl=300)
+def load_daily_prop_edges():
+    q = """
+    SELECT
+        dpl.prop_id,
+        dpl.player_id,
+        p.full_name,
+        t.team_abbreviation,
+        dpl.stat_type,
+        dpl.line_value,
+        dpl.sportsbook,
+        dpl.prop_date,
+        CASE
+            WHEN dpl.stat_type = 'POINTS' THEN pp.pred_points
+            WHEN dpl.stat_type = 'REBOUNDS' THEN pp.pred_rebounds
+            WHEN dpl.stat_type = 'ASSISTS' THEN pp.pred_assists
+            WHEN dpl.stat_type = 'PRA' THEN (pp.pred_points + pp.pred_rebounds + pp.pred_assists)
+        END AS projection,
+        CASE
+            WHEN dpl.stat_type = 'POINTS' THEN pp.pred_points - dpl.line_value
+            WHEN dpl.stat_type = 'REBOUNDS' THEN pp.pred_rebounds - dpl.line_value
+            WHEN dpl.stat_type = 'ASSISTS' THEN pp.pred_assists - dpl.line_value
+            WHEN dpl.stat_type = 'PRA' THEN (pp.pred_points + pp.pred_rebounds + pp.pred_assists) - dpl.line_value
+        END AS edge
+    FROM daily_prop_lines dpl
+    JOIN player_predictions pp
+        ON dpl.player_id = pp.player_id
+    JOIN players p
+        ON dpl.player_id = p.player_id
+    LEFT JOIN teams t
+        ON p.team_id = t.team_id
+    WHERE dpl.prop_date = CURRENT_DATE
+    """
+    try:
+        df = pd.read_sql(text(q), engine)
+    except Exception:
+        return pd.DataFrame()
+
+    if df.empty:
+        return df
+
+    df["projection"] = pd.to_numeric(df["projection"], errors="coerce")
+    df["line_value"] = pd.to_numeric(df["line_value"], errors="coerce")
+    df["edge"] = pd.to_numeric(df["edge"], errors="coerce")
+    df["abs_edge"] = df["edge"].abs()
+    df["confidence"] = df["edge"].apply(prop_confidence)
+    df["recommendation"] = df["edge"].apply(prop_call)
+
+    df = df[df["abs_edge"] >= 1.0].copy()
+    df = df.sort_values(["abs_edge", "full_name"], ascending=[False, True]).reset_index(drop=True)
+
+    return df
 
 
 inject_css()
@@ -832,7 +1000,13 @@ if not last_updated_df.empty and pd.notna(last_updated_df.loc[0, "last_updated"]
 
 view = st.radio(
     "View",
-    ["Player Analytics", "Team Analytics", "League Leaders", "Matchup Comparison"],
+    [
+        "Player Analytics",
+        "Team Analytics",
+        "League Leaders",
+        "Matchup Comparison",
+        "Daily Prop Engine",
+    ],
     horizontal=True,
 )
 
@@ -886,6 +1060,11 @@ if view == "Player Analytics":
             f'<div class="hero-subtitle-secondary" style="text-align:left;">{team_abbrev} • {player_window} Analytics Profile</div>',
             unsafe_allow_html=True,
         )
+
+        if not prediction.empty and "status" in prediction.columns:
+            injury_status = prediction.iloc[0]["status"]
+            if pd.notna(injury_status) and injury_status not in ["ACTIVE", "Probable", "PROBABLE"]:
+                st.warning(f"Injury status: {injury_status}")
 
     latest = stats_view.iloc[-1]
 
@@ -1237,6 +1416,7 @@ elif view == "League Leaders":
 elif view == "Matchup Comparison":
     teams = load_teams()
     team_context_df = load_matchup_team_context()
+    injury_df = load_team_injury_impact()
 
     if teams.empty or team_context_df.empty:
         st.error("No team data found.")
@@ -1284,6 +1464,15 @@ elif view == "Matchup Comparison":
 
     proj_a = project_matchup_score(team_a_for, team_b_against, team_a_pace, team_b_pace, home_bonus=2.0)
     proj_b = project_matchup_score(team_b_for, team_a_against, team_b_pace, team_a_pace, home_bonus=0.0)
+
+    inj_a = injury_df.loc[injury_df["team_id"] == team_a_id] if not injury_df.empty else pd.DataFrame()
+    inj_b = injury_df.loc[injury_df["team_id"] == team_b_id] if not injury_df.empty else pd.DataFrame()
+
+    injury_penalty_a = float(inj_a["injury_penalty"].iloc[0]) if not inj_a.empty else 0.0
+    injury_penalty_b = float(inj_b["injury_penalty"].iloc[0]) if not inj_b.empty else 0.0
+
+    proj_a -= injury_penalty_a * 1.5
+    proj_b -= injury_penalty_b * 1.5
 
     a_win_prob = win_probability_from_scores(proj_a, proj_b)
     b_win_prob = 1 - a_win_prob
@@ -1393,6 +1582,117 @@ elif view == "Matchup Comparison":
         yaxis_title="",
     )
     st.plotly_chart(fig, use_container_width=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+elif view == "Daily Prop Engine":
+    prop_df = load_daily_prop_edges()
+
+    st.markdown('<div class="section-title">Daily Prop Engine</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="hero-subtitle-secondary" style="text-align:left;">Top projected edges versus today’s betting lines</div>',
+        unsafe_allow_html=True,
+    )
+
+    if prop_df.empty:
+        st.warning("No daily prop lines found for today.")
+        st.stop()
+
+    top5 = (
+        prop_df.sort_values("abs_edge", ascending=False)
+        .drop_duplicates(subset=["player_id"], keep="first")
+        .head(5)
+        .copy()
+    )
+
+    st.markdown('<div class="panel">', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Top 5 Prop Edges</div>', unsafe_allow_html=True)
+    render_prop_cards(top5, top_n=5)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    summary_cols = st.columns(4)
+    with summary_cols[0]:
+        st.markdown(
+            f"""
+            <div class="metric-card">
+                <div class="metric-value">{len(prop_df)}</div>
+                <div class="metric-name">Props Tracked</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with summary_cols[1]:
+        st.markdown(
+            f"""
+            <div class="metric-card">
+                <div class="metric-value">{safe_metric(prop_df['abs_edge'].max(), 1)}</div>
+                <div class="metric-name">Top Absolute Edge</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with summary_cols[2]:
+        strong_over_count = int((prop_df["recommendation"] == "Strong Over").sum())
+        st.markdown(
+            f"""
+            <div class="metric-card">
+                <div class="metric-value">{strong_over_count}</div>
+                <div class="metric-name">Strong Overs</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with summary_cols[3]:
+        strong_under_count = int((prop_df["recommendation"] == "Strong Under").sum())
+        st.markdown(
+            f"""
+            <div class="metric-card">
+                <div class="metric-value">{strong_under_count}</div>
+                <div class="metric-name">Strong Unders</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.markdown('<div class="panel">', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Full Prop Board</div>', unsafe_allow_html=True)
+
+    board_col1, board_col2, board_col3 = st.columns([1.2, 1.2, 1])
+    with board_col1:
+        selected_stat = st.selectbox(
+            "Filter by Stat",
+            ["All", "POINTS", "REBOUNDS", "ASSISTS", "PRA"],
+            key="prop_stat_filter",
+        )
+    with board_col2:
+        selected_rec = st.selectbox(
+            "Filter by Recommendation",
+            ["All", "Strong Over", "Lean Over", "No Edge", "Lean Under", "Strong Under"],
+            key="prop_rec_filter",
+        )
+    with board_col3:
+        min_edge = st.number_input(
+            "Minimum Edge",
+            value=1.0,
+            step=0.5,
+            key="prop_min_edge",
+        )
+
+    filtered_df = prop_df.copy()
+
+    if selected_stat != "All":
+        filtered_df = filtered_df[filtered_df["stat_type"] == selected_stat]
+
+    if selected_rec != "All":
+        filtered_df = filtered_df[filtered_df["recommendation"] == selected_rec]
+
+    filtered_df = filtered_df[filtered_df["abs_edge"] >= min_edge]
+    filtered_df = filtered_df.sort_values("abs_edge", ascending=False)
+
+    if filtered_df.empty:
+        st.info("No props match the current filters.")
+    else:
+        render_full_prop_board(filtered_df)
+
     st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown(

@@ -451,3 +451,247 @@ Player predictions loaded.
 Full NBA refresh complete.
 Teams and players loaded.
 Loading ATL...
+Traceback (most recent call last):
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2125, in _exec_insertmany_context
+    dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "aggregated_stats_pkey"
+DETAIL:  Key (player_id)=(201143) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/nicosommerabadia/statline/statline/src/refresh_all.py", line 30, in <module>
+    rebuild_aggregates_and_efficiency(season_label="2025-26")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/src/metrics.py", line 84, in rebuild_aggregates_and_efficiency
+    agg.to_sql("aggregated_stats", conn, if_exists="append", index=False)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/pandas/core/generic.py", line 3109, in to_sql
+    return sql.to_sql(
+           ~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<8 lines>...
+        method=method,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 844, in to_sql
+    return pandas_sql.to_sql(
+           ~~~~~~~~~~~~~~~~~^
+        frame,
+        ^^^^^^
+    ...<9 lines>...
+        **engine_kwargs,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 2030, in to_sql
+    total_inserted = sql_engine.insert_records(
+        table=table,
+    ...<7 lines>...
+        **engine_kwargs,
+    )
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1579, in insert_records
+    raise err
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1570, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1121, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/pandas/io/sql.py", line 1012, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1844, in _execute_context
+    return self._exec_insertmany_context(dialect, context)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2133, in _exec_insertmany_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e,
+        ^^
+    ...<4 lines>...
+        is_sub_exec=True,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2125, in _exec_insertmany_context
+    dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "aggregated_stats_pkey"
+DETAIL:  Key (player_id)=(201143) already exists.
+
+[SQL: INSERT INTO aggregated_stats (player_id, season_id, games_played, avg_points, avg_rebounds, avg_assists, per36_points, per36_rebounds, per36_assists, fg_pct, three_pct, ft_pct) VALUES (%(player_id__0)s, %(season_id__0)s, %(games_played__0)s, %(avg_po ... 131895 characters truncated ... per36_rebounds__518)s, %(per36_assists__518)s, %(fg_pct__518)s, %(three_pct__518)s, %(ft_pct__518)s)]
+[parameters: {'per36_assists__0': 0, 'avg_rebounds__0': 5.666666666666667, 'three_pct__0': 31.08433734939759, 'per36_rebounds__0': 0, 'avg_assists__0': 6.935483870967742, 'avg_points__0': 21.225806451612904, 'per36_points__0': 0, 'season_id__0': 1, 'games_played__0': 47, 'ft_pct__0': 74.17355371900827, 'player_id__0': 2544, 'fg_pct__0': 50.5786249149081, 'per36_assists__1': 0, 'avg_rebounds__1': 0.8181818181818182, 'three_pct__1': 20.0, 'per36_rebounds__1': 0, 'avg_assists__1': 1.0, 'avg_points__1': 1.2727272727272727, 'per36_points__1': 0, 'season_id__1': 1, 'games_played__1': 11, 'ft_pct__1': 83.33333333333334, 'player_id__1': 200768, 'fg_pct__1': 20.0, 'per36_assists__2': 0, 'avg_rebounds__2': 5.503937007874016, 'three_pct__2': 40.387275242047025, 'per36_rebounds__2': 0, 'avg_assists__2': 4.456692913385827, 'avg_points__2': 25.88976377952756, 'per36_points__2': 0, 'season_id__2': 1, 'games_played__2': 64, 'ft_pct__2': 88.59416445623343, 'player_id__2': 201142, 'fg_pct__2': 51.45888594164456, 'per36_assists__3': 0, 'avg_rebounds__3': 5.0, 'three_pct__3': 36.04060913705584, 'per36_rebounds__3': 0, 'avg_assists__3': 2.604651162790698, 'avg_points__3': 8.30232558139535, 'per36_points__3': 0, 'season_id__3': 1, 'games_played__3': 43, 'ft_pct__3': 84.61538461538461, 'player_id__3': 201143, 'fg_pct__3': 42.443729903536976, 'per36_assists__4': 0, 'avg_rebounds__4': 1.7391304347826086 ... 6128 parameters truncated ... 'player_id__514': 1643018, 'fg_pct__514': 44.18604651162791, 'per36_assists__515': 0, 'avg_rebounds__515': 1.0, 'three_pct__515': 0.0, 'per36_rebounds__515': 0, 'avg_assists__515': 0.16666666666666666, 'avg_points__515': 0.3333333333333333, 'per36_points__515': 0, 'season_id__515': 1, 'games_played__515': 6, 'ft_pct__515': 100.0, 'player_id__515': 1643024, 'fg_pct__515': 0.0, 'per36_assists__516': 0, 'avg_rebounds__516': 4.8, 'three_pct__516': 44.44444444444444, 'per36_rebounds__516': 0, 'avg_assists__516': 1.2, 'avg_points__516': 7.0, 'per36_points__516': 0, 'season_id__516': 1, 'games_played__516': 5, 'ft_pct__516': 64.28571428571429, 'player_id__516': 1643052, 'fg_pct__516': 50.0, 'per36_assists__517': 0, 'avg_rebounds__517': 7.666666666666667, 'three_pct__517': 11.11111111111111, 'per36_rebounds__517': 0, 'avg_assists__517': 1.6666666666666667, 'avg_points__517': 5.0, 'per36_points__517': 0, 'season_id__517': 1, 'games_played__517': 3, 'ft_pct__517': 100.0, 'player_id__517': 1643158, 'fg_pct__517': 27.77777777777778, 'per36_assists__518': 0, 'avg_rebounds__518': 1.0, 'three_pct__518': 0.0, 'per36_rebounds__518': 0, 'avg_assists__518': 0.0, 'avg_points__518': 2.0, 'per36_points__518': 0, 'season_id__518': 1, 'games_played__518': 1, 'ft_pct__518': 0.0, 'player_id__518': 1643257, 'fg_pct__518': 100.0}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Aggregated stats and efficiency loaded.
+Rebuilt player predictions for 519 players.
+Full NBA refresh complete.
