@@ -7,7 +7,7 @@ The goal of this project was to simulate the type of analytics tools used intern
 This project explores the intersection of sports analytics, data engineering, and product development. The goal was to create a platform that reflects the types of tools analysts may use internally within sports analytics and sportsbook environments.
 
 Link: 
-https://statline99.streamlit.app/
+https://statline.streamlit.app/
 ---
 
 # Features
