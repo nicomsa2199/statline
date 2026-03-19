@@ -123,8 +123,13 @@ def extract_prop_rows(event_payload: dict, prop_date: str) -> list[dict]:
         subset=["player_name", "stat_type", "sportsbook", "prop_date", "line_value"]
     )
 
+    # Keep the lowest line for the same player/stat/book/date.
+    # This is simple and deterministic for now.
     df = (
-        df.sort_values(["player_name", "stat_type", "sportsbook", "prop_date"])
+        df.sort_values(
+            ["player_name", "stat_type", "sportsbook", "prop_date", "line_value"],
+            ascending=[True, True, True, True, True],
+        )
         .drop_duplicates(
             subset=["player_name", "stat_type", "sportsbook", "prop_date"],
             keep="first",
@@ -169,14 +174,12 @@ def upsert_daily_props(rows: list[dict]) -> int:
     players_df = load_players_lookup()
     name_map_df = load_name_map()
 
-    # Direct name match
     merged = props_df.merge(
         players_df[["player_id", "norm_name"]],
         on="norm_name",
         how="left",
     )
 
-    # Fallback alias match
     if not name_map_df.empty:
         fallback = props_df.merge(
             name_map_df,
