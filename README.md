@@ -107,7 +107,9 @@ daily_prop_lines
 Stores sportsbook betting lines for player props
 
 prop_results (in progress)
+
 Tracks historical outcomes of prop bets for performance evaluation
+
 ---
 
 # Analytics & Projections
@@ -151,7 +153,7 @@ StatLine was built using the following technologies:
 
 - Python
 - SQL
-- -SQLAlchemy
+- SQLAlchemy
 - PostgreSQL / Neon
 - Streamlit
 - Plotly
