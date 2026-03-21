@@ -10,14 +10,6 @@ from sqlalchemy import text
 from src.db import engine
 
 
-STAT_MAE = {
-    "POINTS": 5.15,
-    "REBOUNDS": 2.02,
-    "ASSISTS": 1.43,
-    "PRA": 6.50,
-}
-
-
 def get_player_headshot(player_id: int) -> str:
     return f"https://cdn.nba.com/headshots/nba/latest/1040x760/{player_id}.png"
 
@@ -444,37 +436,23 @@ def filter_by_window(df: pd.DataFrame, mode: str = "Season") -> pd.DataFrame:
     return df
 
 
-def get_prop_thresholds(stat_type: str) -> tuple[float, float]:
-    thresholds = {
-        "POINTS": (3.5, 2.0),
-        "REBOUNDS": (2.0, 1.0),
-        "ASSISTS": (1.5, 0.8),
-        "PRA": (4.5, 2.5),
-    }
-    return thresholds.get(stat_type, (3.0, 1.5))
-
-
-def prop_call(edge: float, stat_type: str = "POINTS") -> str:
-    strong, lean = get_prop_thresholds(stat_type)
-
-    if edge >= strong:
+def prop_call(edge: float) -> str:
+    if edge >= 5:
         return "Strong Over"
-    if edge >= lean:
+    if edge >= 2:
         return "Lean Over"
-    if edge <= -strong:
+    if edge <= -5:
         return "Strong Under"
-    if edge <= -lean:
+    if edge <= -2:
         return "Lean Under"
     return "No Edge"
 
 
-def prop_confidence(edge: float, stat_type: str = "POINTS") -> str:
-    stat_mae = STAT_MAE.get(stat_type, 5.0)
-    score = abs(edge) / stat_mae if stat_mae else 0
-
-    if score >= 1.15:
+def prop_confidence(edge: float) -> str:
+    abs_edge = abs(edge)
+    if abs_edge >= 6:
         return "High"
-    if score >= 0.75:
+    if abs_edge >= 3:
         return "Medium"
     return "Low"
 
@@ -651,11 +629,9 @@ def render_prop_cards(df: pd.DataFrame, top_n: int = 5):
         projection = float(row["projection"]) if pd.notna(row["projection"]) else 0.0
         line_value = float(row["line_value"]) if pd.notna(row["line_value"]) else 0.0
         edge = float(row["edge"]) if pd.notna(row["edge"]) else 0.0
-        call = prop_call(edge, row["stat_type"])
+        call = prop_call(edge)
 
         logo_html = f'<img class="leader-logo" src="{get_team_logo(team_abbrev)}" />' if team_abbrev else ""
-
-        flag_text = " • Review" if bool(row.get("review_flag", False)) else ""
 
         st.markdown(
             f"""
@@ -665,7 +641,7 @@ def render_prop_cards(df: pd.DataFrame, top_n: int = 5):
                     <img class="leader-headshot" src="{get_player_headshot(player_id)}" />
                     <div class="leader-name-wrap">
                         <div class="leader-name">{row['full_name']}</div>
-                        <div class="leader-team">{team_abbrev} • {row['stat_type']} • {row['sportsbook']}{flag_text}</div>
+                        <div class="leader-team">{team_abbrev} • {row['stat_type']} • {row['sportsbook']}</div>
                     </div>
                     {logo_html}
                 </div>
@@ -692,11 +668,10 @@ def render_full_prop_board(df: pd.DataFrame):
         projection = float(row["projection"]) if pd.notna(row["projection"]) else 0.0
         line_value = float(row["line_value"]) if pd.notna(row["line_value"]) else 0.0
         edge = float(row["edge"]) if pd.notna(row["edge"]) else 0.0
-        call = prop_call(edge, row["stat_type"])
-        confidence = prop_confidence(edge, row["stat_type"])
+        call = prop_call(edge)
+        confidence = prop_confidence(edge)
 
         logo_html = f'<img class="leader-logo" src="{get_team_logo(team_abbrev)}" />' if team_abbrev else ""
-        flag_text = "Review" if bool(row.get("review_flag", False)) else "OK"
 
         st.markdown(
             f"""
@@ -723,20 +698,12 @@ def render_full_prop_board(df: pd.DataFrame):
                         <div class="team-rank-stat-label">Edge</div>
                     </div>
                     <div class="team-rank-stat">
-                        <div class="team-rank-stat-value">{safe_metric(row["edge_score"], 2)}</div>
-                        <div class="team-rank-stat-label">Score</div>
-                    </div>
-                    <div class="team-rank-stat">
                         <div class="team-rank-stat-value">{confidence}</div>
                         <div class="team-rank-stat-label">Confidence</div>
                     </div>
                     <div class="team-rank-stat">
                         <div class="team-rank-stat-value" style="font-size:0.95rem;">{call}</div>
                         <div class="team-rank-stat-label">Recommendation</div>
-                    </div>
-                    <div class="team-rank-stat">
-                        <div class="team-rank-stat-value" style="font-size:0.9rem;">{flag_text}</div>
-                        <div class="team-rank-stat-label">Flag</div>
                     </div>
                 </div>
             </div>
@@ -1015,32 +982,12 @@ def load_daily_prop_edges():
     df["projection"] = pd.to_numeric(df["projection"], errors="coerce")
     df["line_value"] = pd.to_numeric(df["line_value"], errors="coerce")
     df["edge"] = pd.to_numeric(df["edge"], errors="coerce")
-
-    df = df.dropna(subset=["projection", "line_value", "edge"]).copy()
-
     df["abs_edge"] = df["edge"].abs()
-    df["stat_mae"] = df["stat_type"].map(STAT_MAE).fillna(5.0)
-    df["edge_score"] = df["abs_edge"] / df["stat_mae"]
-
-    df["review_flag"] = (
-        ((df["stat_type"] == "POINTS") & (df["abs_edge"] >= 8.0))
-        | ((df["stat_type"] == "REBOUNDS") & (df["abs_edge"] >= 5.0))
-        | ((df["stat_type"] == "ASSISTS") & (df["abs_edge"] >= 4.0))
-        | ((df["stat_type"] == "PRA") & (df["abs_edge"] >= 9.0))
-    )
-
-    df["confidence"] = df.apply(lambda row: prop_confidence(row["edge"], row["stat_type"]), axis=1)
-    df["recommendation"] = df.apply(lambda row: prop_call(row["edge"], row["stat_type"]), axis=1)
+    df["confidence"] = df["edge"].apply(prop_confidence)
+    df["recommendation"] = df["edge"].apply(prop_call)
 
     df = df[df["abs_edge"] >= 1.0].copy()
-
-    # Slight penalty to suspiciously large edges instead of fully dropping them
-    df["ranking_score"] = df["edge_score"] - df["review_flag"].astype(int) * 0.20
-
-    df = df.sort_values(
-        ["ranking_score", "abs_edge", "full_name"],
-        ascending=[False, False, True],
-    ).reset_index(drop=True)
+    df = df.sort_values(["abs_edge", "full_name"], ascending=[False, True]).reset_index(drop=True)
 
     return df
 
@@ -1284,9 +1231,9 @@ if view == "Player Analytics":
             pra_line = st.number_input("PRA Line", value=36.5, step=0.5, key="pra_line")
 
         props = [
-            ("POINTS", pred_points, points_line),
-            ("REBOUNDS", pred_rebounds, rebounds_line),
-            ("ASSISTS", pred_assists, assists_line),
+            ("Points", pred_points, points_line),
+            ("Rebounds", pred_rebounds, rebounds_line),
+            ("Assists", pred_assists, assists_line),
             ("PRA", pred_pra, pra_line),
         ]
 
@@ -1294,7 +1241,7 @@ if view == "Player Analytics":
 
         for col, (name, projection, line) in zip(prop_cols, props):
             edge = projection - line
-            call = prop_call(edge, name)
+            call = prop_call(edge)
 
             with col:
                 st.markdown(
@@ -1651,7 +1598,7 @@ elif view == "Daily Prop Engine":
         st.stop()
 
     top5 = (
-        prop_df.sort_values("ranking_score", ascending=False)
+        prop_df.sort_values("abs_edge", ascending=False)
         .drop_duplicates(subset=["player_id"], keep="first")
         .head(5)
         .copy()
@@ -1709,7 +1656,7 @@ elif view == "Daily Prop Engine":
     st.markdown('<div class="panel">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Full Prop Board</div>', unsafe_allow_html=True)
 
-    board_col1, board_col2, board_col3, board_col4 = st.columns([1.1, 1.1, 1, 1])
+    board_col1, board_col2, board_col3 = st.columns([1.2, 1.2, 1])
     with board_col1:
         selected_stat = st.selectbox(
             "Filter by Stat",
@@ -1729,12 +1676,6 @@ elif view == "Daily Prop Engine":
             step=0.5,
             key="prop_min_edge",
         )
-    with board_col4:
-        hide_flagged = st.selectbox(
-            "Hide Flagged",
-            ["No", "Yes"],
-            key="prop_hide_flagged",
-        )
 
     filtered_df = prop_df.copy()
 
@@ -1745,11 +1686,7 @@ elif view == "Daily Prop Engine":
         filtered_df = filtered_df[filtered_df["recommendation"] == selected_rec]
 
     filtered_df = filtered_df[filtered_df["abs_edge"] >= min_edge]
-
-    if hide_flagged == "Yes":
-        filtered_df = filtered_df[~filtered_df["review_flag"]]
-
-    filtered_df = filtered_df.sort_values(["ranking_score", "abs_edge"], ascending=[False, False])
+    filtered_df = filtered_df.sort_values("abs_edge", ascending=False)
 
     if filtered_df.empty:
         st.info("No props match the current filters.")
