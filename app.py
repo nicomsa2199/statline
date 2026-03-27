@@ -990,7 +990,59 @@ def load_daily_prop_edges():
     df = df.sort_values(["abs_edge", "full_name"], ascending=[False, True]).reset_index(drop=True)
 
     return df
+def save_props_to_db(df: pd.DataFrame) -> int:
+    if df.empty:
+        return 0
 
+    records = []
+    for _, row in df.iterrows():
+        records.append(
+            {
+                "player_id": int(row["player_id"]),
+                "prop_date": row["prop_date"],
+                "stat_type": str(row["stat_type"]),
+                "line_value": float(row["line_value"]),
+                "projection": float(row["projection"]),
+                "edge": float(row["edge"]),
+                "pick_side": "OVER" if float(row["edge"]) > 0 else "UNDER",
+                "sportsbook": str(row["sportsbook"]) if pd.notna(row["sportsbook"]) else None,
+            }
+        )
+
+    insert_sql = """
+    INSERT INTO prop_results (
+        player_id,
+        prop_date,
+        stat_type,
+        line_value,
+        projection,
+        edge,
+        pick_side,
+        sportsbook
+    )
+    VALUES (
+        :player_id,
+        :prop_date,
+        :stat_type,
+        :line_value,
+        :projection,
+        :edge,
+        :pick_side,
+        :sportsbook
+    )
+    ON CONFLICT (player_id, prop_date, stat_type)
+    DO UPDATE SET
+        line_value = EXCLUDED.line_value,
+        projection = EXCLUDED.projection,
+        edge = EXCLUDED.edge,
+        pick_side = EXCLUDED.pick_side,
+        sportsbook = EXCLUDED.sportsbook
+    """
+
+    with engine.begin() as conn:
+        conn.execute(text(insert_sql), records)
+
+    return len(records)
 
 inject_css()
 
@@ -1607,6 +1659,26 @@ elif view == "Daily Prop Engine":
     st.markdown('<div class="panel">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Top 5 Prop Edges</div>', unsafe_allow_html=True)
     render_prop_cards(top5, top_n=5)
+
+    save_col1, save_col2 = st.columns([1.2, 4])
+
+    with save_col1:
+        save_count = st.selectbox(
+            "Save how many picks",
+            [2, 3, 5],
+            index=1,
+            key="save_pick_count",
+        )
+
+    with save_col2:
+        if st.button("Save Today's Picks"):
+            picks_to_save = top5.head(save_count).copy()
+            rows_saved = save_props_to_db(picks_to_save)
+            if rows_saved > 0:
+                st.success(f"Saved {rows_saved} picks to prop_results.")
+            else:
+                st.warning("No picks were saved.")
+
     st.markdown("</div>", unsafe_allow_html=True)
 
     summary_cols = st.columns(4)
@@ -1694,8 +1766,3 @@ elif view == "Daily Prop Engine":
         render_full_prop_board(filtered_df)
 
     st.markdown("</div>", unsafe_allow_html=True)
-
-st.markdown(
-    '<div class="footer-note">StatLine • The Pulse of the Game</div>',
-    unsafe_allow_html=True,
-)
