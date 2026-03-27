@@ -994,6 +994,22 @@ def save_props_to_db(df: pd.DataFrame) -> int:
     if df.empty:
         return 0
 
+    required_cols = [
+        "prop_id",
+        "player_id",
+        "prop_date",
+        "stat_type",
+        "line_value",
+        "projection",
+        "edge",
+        "sportsbook",
+    ]
+
+    missing_cols = [col for col in required_cols if col not in df.columns]
+    if missing_cols:
+        st.error(f"Missing required columns in prop dataframe: {missing_cols}")
+        return 0
+
     records = []
     for _, row in df.iterrows():
         records.append(
@@ -1007,35 +1023,56 @@ def save_props_to_db(df: pd.DataFrame) -> int:
                 "edge": float(row["edge"]),
                 "pick_side": "OVER" if float(row["edge"]) > 0 else "UNDER",
                 "sportsbook": str(row["sportsbook"]) if pd.notna(row["sportsbook"]) else None,
-                "recommendation": str(row["recommendation"]) if pd.notna(row["recommendation"]) else None,
+                "recommendation": (
+                    str(row["recommendation"])
+                    if "recommendation" in row and pd.notna(row["recommendation"])
+                    else None
+                ),
             }
         )
 
     insert_sql = """
-INSERT INTO prop_results (
-    player_id,
-    prop_date,
-    stat_type,
-    prop_id,
-    result,
-    pick,
-    edge,
-    created_at
-) VALUES (
-    :player_id,
-    :prop_date,
-    :stat_type,
-    :prop_id,
-    :result,
-    :pick,
-    :edge,
-    NOW()
-)
-ON CONFLICT (player_id, prop_date, stat_type) DO NOTHING
-"""
+    INSERT INTO prop_results (
+        prop_id,
+        player_id,
+        prop_date,
+        stat_type,
+        line_value,
+        projection,
+        edge,
+        pick_side,
+        sportsbook,
+        recommendation
+    )
+    VALUES (
+        :prop_id,
+        :player_id,
+        :prop_date,
+        :stat_type,
+        :line_value,
+        :projection,
+        :edge,
+        :pick_side,
+        :sportsbook,
+        :recommendation
+    )
+    ON CONFLICT (player_id, prop_date, stat_type)
+    DO UPDATE SET
+        prop_id = EXCLUDED.prop_id,
+        line_value = EXCLUDED.line_value,
+        projection = EXCLUDED.projection,
+        edge = EXCLUDED.edge,
+        pick_side = EXCLUDED.pick_side,
+        sportsbook = EXCLUDED.sportsbook,
+        recommendation = EXCLUDED.recommendation
+    """
 
-    with engine.begin() as conn:
-        conn.execute(text(insert_sql), records)
+    try:
+        with engine.begin() as conn:
+            conn.execute(text(insert_sql), records)
+    except Exception as e:
+        st.error(f"Save failed: {repr(e)}")
+        raise
 
     return len(records)
 
