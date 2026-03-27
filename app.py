@@ -998,6 +998,7 @@ def save_props_to_db(df: pd.DataFrame) -> int:
     for _, row in df.iterrows():
         records.append(
             {
+                "prop_id": int(row["prop_id"]),
                 "player_id": int(row["player_id"]),
                 "prop_date": row["prop_date"],
                 "stat_type": str(row["stat_type"]),
@@ -1006,11 +1007,13 @@ def save_props_to_db(df: pd.DataFrame) -> int:
                 "edge": float(row["edge"]),
                 "pick_side": "OVER" if float(row["edge"]) > 0 else "UNDER",
                 "sportsbook": str(row["sportsbook"]) if pd.notna(row["sportsbook"]) else None,
+                "recommendation": str(row["recommendation"]) if pd.notna(row["recommendation"]) else None,
             }
         )
 
     insert_sql = """
     INSERT INTO prop_results (
+        prop_id,
         player_id,
         prop_date,
         stat_type,
@@ -1018,9 +1021,11 @@ def save_props_to_db(df: pd.DataFrame) -> int:
         projection,
         edge,
         pick_side,
-        sportsbook
+        sportsbook,
+        recommendation
     )
     VALUES (
+        :prop_id,
         :player_id,
         :prop_date,
         :stat_type,
@@ -1028,15 +1033,18 @@ def save_props_to_db(df: pd.DataFrame) -> int:
         :projection,
         :edge,
         :pick_side,
-        :sportsbook
+        :sportsbook,
+        :recommendation
     )
     ON CONFLICT (player_id, prop_date, stat_type)
     DO UPDATE SET
+        prop_id = EXCLUDED.prop_id,
         line_value = EXCLUDED.line_value,
         projection = EXCLUDED.projection,
         edge = EXCLUDED.edge,
         pick_side = EXCLUDED.pick_side,
-        sportsbook = EXCLUDED.sportsbook
+        sportsbook = EXCLUDED.sportsbook,
+        recommendation = EXCLUDED.recommendation
     """
 
     with engine.begin() as conn:
