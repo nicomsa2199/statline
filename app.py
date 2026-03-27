@@ -1012,40 +1012,27 @@ def save_props_to_db(df: pd.DataFrame) -> int:
         )
 
     insert_sql = """
-    INSERT INTO prop_results (
-        prop_id,
-        player_id,
-        prop_date,
-        stat_type,
-        line_value,
-        projection,
-        edge,
-        pick_side,
-        sportsbook,
-        recommendation
-    )
-    VALUES (
-        :prop_id,
-        :player_id,
-        :prop_date,
-        :stat_type,
-        :line_value,
-        :projection,
-        :edge,
-        :pick_side,
-        :sportsbook,
-        :recommendation
-    )
-    ON CONFLICT (player_id, prop_date, stat_type)
-    DO UPDATE SET
-        prop_id = EXCLUDED.prop_id,
-        line_value = EXCLUDED.line_value,
-        projection = EXCLUDED.projection,
-        edge = EXCLUDED.edge,
-        pick_side = EXCLUDED.pick_side,
-        sportsbook = EXCLUDED.sportsbook,
-        recommendation = EXCLUDED.recommendation
-    """
+INSERT INTO prop_results (
+    player_id,
+    prop_date,
+    stat_type,
+    prop_id,
+    result,
+    pick,
+    edge,
+    created_at
+) VALUES (
+    :player_id,
+    :prop_date,
+    :stat_type,
+    :prop_id,
+    :result,
+    :pick,
+    :edge,
+    NOW()
+)
+ON CONFLICT (player_id, prop_date, stat_type) DO NOTHING
+"""
 
     with engine.begin() as conn:
         conn.execute(text(insert_sql), records)
