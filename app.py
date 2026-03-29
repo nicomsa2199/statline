@@ -1709,8 +1709,7 @@ elif view == "Daily Prop Engine":
 
     with save_col2:
         if st.button("Save Today's Picks"):
-            picks_to_save = top5.head(save_count).copy()
-            rows_saved = save_props_to_db(picks_to_save)
+            rows_saved = save_props_to_db(prop_df.copy())
             if rows_saved > 0:
                 st.success(f"Saved {rows_saved} picks to prop_results.")
             else:
