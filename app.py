@@ -1042,7 +1042,9 @@ def save_props_to_db(df: pd.DataFrame) -> int:
         edge,
         pick_side,
         sportsbook,
-        recommendation
+        recommendation,
+        created_at,
+        updated_at
     )
     VALUES (
         :prop_id,
@@ -1054,7 +1056,9 @@ def save_props_to_db(df: pd.DataFrame) -> int:
         :edge,
         :pick_side,
         :sportsbook,
-        :recommendation
+        :recommendation,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
     )
     ON CONFLICT (player_id, prop_date, stat_type)
     DO UPDATE SET
@@ -1064,7 +1068,8 @@ def save_props_to_db(df: pd.DataFrame) -> int:
         edge = EXCLUDED.edge,
         pick_side = EXCLUDED.pick_side,
         sportsbook = EXCLUDED.sportsbook,
-        recommendation = EXCLUDED.recommendation
+        recommendation = EXCLUDED.recommendation,
+        updated_at = CURRENT_TIMESTAMP
     """
 
     try:
