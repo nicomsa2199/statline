@@ -19,15 +19,15 @@ def grade_saved_props() -> None:
             pg.assists,
             ROW_NUMBER() OVER (
                 PARTITION BY pr.result_id
-                ORDER BY DATE(g.game_date) ASC
+                ORDER BY g.game_date ASC
             ) AS rn
         FROM prop_results pr
         JOIN player_game_stats pg
             ON pr.player_id = pg.player_id
         JOIN games g
             ON pg.game_id = g.game_id
-        WHERE DATE(g.game_date) >= pr.prop_date
-          AND DATE(g.game_date) <= pr.prop_date + INTERVAL '2 days'
+        WHERE g.game_date >= pr.prop_date
+          AND g.game_date < pr.prop_date + INTERVAL '3 days'
           AND pr.actual_value IS NULL
     ),
     actual_stats AS (
