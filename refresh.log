@@ -2475,3 +2475,349 @@ Unmatched player names from Odds API:
 Loaded 68 daily prop lines from Odds API.
 Full NBA refresh complete.
 Teams that failed: ['ATL']
+Teams and players loaded.
+Loading ATL...
+Failed loading ATL: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501092', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612737, 'opponent_team_id': 1610612738, 'matchup': 'ATL vs. BOS', 'home_or_away': 'Home', 'team_score': 112, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501078', 'season_id': 1, 'game_date': datetime.date(2026, 3, 28), 'team_id': 1610612737, 'opponent_team_id': 1610612758, 'matchup': 'ATL vs. SAC', 'home_or_away': 'Home', 'team_score': 123, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501067', 'season_id': 1, 'game_date': datetime.date(2026, 3, 27), 'team_id': 1610612737, 'opponent_team_id': 1610612738, 'matchup': 'ATL @ BOS', 'home_or_away': 'Away', 'team_score': 102, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501051', 'season_id': 1, 'game_date': datetime.date(2026, 3, 25), 'team_id': 1610612737, 'opponent_team_id': 1610612765, 'matchup': 'ATL @ DET', 'home_or_away': 'Away', 'team_score': 130, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501037', 'season_id': 1, 'game_date': datetime.date(2026, 3, 23), 'team_id': 1610612737, 'opponent_team_id': 1610612763, 'matchup': 'ATL vs. MEM', 'home_or_away': 'Home', 'team_score': 146, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501026', 'season_id': 1, 'game_date': datetime.date(2026, 3, 21), 'team_id': 1610612737, 'opponent_team_id': 1610612744, 'matchup': 'ATL vs. GSW', 'home_or_away': 'Home', 'team_score': 126, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501018', 'season_id': 1, 'game_date': datetime.date(2026, 3, 20), 'team_id': 1610612737, 'opponent_team_id': 1610612745, 'matchup': 'ATL @ HOU', 'home_or_away': 'Away', 'team_score': 95, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501006', 'season_id': 1, 'game_date': datetime.date(2026, 3, 18), 'team_id': 1610612737, 'opponent_team_id': 1610612742, 'matchup': 'ATL @ DAL', 'home_or_away': 'Away', 'team_score': 135, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 76 total bound parameter sets ...  {'game_id': '0022500090', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612737, 'opponent_team_id': 1610612753, 'matchup': 'ATL @ ORL', 'home_or_away': 'Away', 'team_score': 111, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500082', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612737, 'opponent_team_id': 1610612761, 'matchup': 'ATL vs. TOR', 'home_or_away': 'Home', 'team_score': 118, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading BOS...
+Failed loading BOS: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO players (
+                    player_id,
+                    first_name,
+                    last_name,
+                    full_name,
+                    jersey_name,
+                    height,
+                    weight,
+                    birthdate,
+                    team_id,
+                    position,
+                    is_active
+                )
+                VALUES (
+                    %(player_id)s,
+                    %(first_name)s,
+                    %(last_name)s,
+                    %(full_name)s,
+                    %(jersey_name)s,
+                    %(height)s,
+                    %(weight)s,
+                    %(birthdate)s,
+                    %(team_id)s,
+                    %(position)s,
+                    %(is_active)s
+                )
+                ON CONFLICT (player_id) DO UPDATE
+                SET
+                    first_name = EXCLUDED.first_name,
+                    last_name = EXCLUDED.last_name,
+                    full_name = EXCLUDED.full_name,
+                    jersey_name = EXCLUDED.jersey_name,
+                    team_id = EXCLUDED.team_id,
+                    position = EXCLUDED.position,
+                    is_active = EXCLUDED.is_active,
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'player_id': 1628369, 'first_name': 'Jayson', 'last_name': 'Tatum', 'full_name': 'Jayson Tatum', 'jersey_name': 'Tatum', 'height': None, 'weight': None, 'birthdate': None, 'team_id': 1610612738, 'position': 'F-G', 'is_active': True}, {'player_id': 202696, 'first_name': 'Nikola', 'last_name': 'Vučević', 'full_name': 'Nikola Vučević', 'jersey_name': 'Vučević', 'height': None, 'weight': None, 'birthdate': None, 'team_id': 1610612738, 'position': 'C', 'is_active': True}, {'player_id': 1627759, 'first_name': 'Jaylen', 'last_name': 'Brown', 'full_name': 'Jaylen Brown', 'jersey_name': 'Brown', 'height': None, 'weight': None, 'birthdate': None, 'team_id': 1610612738, 'position': 'G-F', 'is_active': True}, {'player_id': 1642910, 'first_name': 'John', 'last_name': 'Tonje', 'full_name': 'John Tonje', 'jersey_name': 'Tonje', 'height': None, 'weight': None, 'birthdate': None, 'team_id': 1610612738, 'position': 'G', 'is_active': True}, {'player_id': 1628401, 'first_name': 'Derrick', 'last_name': 'White', 'full_name': 'Derrick White', 'jersey_name': 'White', 'height': None, 'weight': None, 'birthdate': None, 'team_id': 1610612738, 'position': 'G', 'is_active': True}, {'player_id': 1630202, 'first_name': 'Payton', 'last_name': 'Pritchard', 'full_name': 'Payton Pritchard', 'jersey_name': 'Pritchard', 'height': None, 'weight': None, 'birthdate': None, 'team_id': 1610612738, 'position': 'G', 'is_active': True}, {'player_id': 1631199, 'first_name': 'Ron', 'last_name': 'Harper Jr.', 'full_name': 'Ron Harper Jr.', 'jersey_name': 'Jr.', 'height': None, 'weight': None, 'birthdate': None, 'team_id': 1610612738, 'position': 'G-F', 'is_active': True}, {'player_id': 1641775, 'first_name': 'Jordan', 'last_name': 'Walsh', 'full_name': 'Jordan Walsh', 'jersey_name': 'Walsh', 'height': None, 'weight': None, 'birthdate': None, 'team_id': 1610612738, 'position': 'G', 'is_active': True}  ... displaying 10 of 16 total bound parameter sets ...  {'player_id': 1642873, 'first_name': 'Amari', 'last_name': 'Williams', 'full_name': 'Amari Williams', 'jersey_name': 'Williams', 'height': None, 'weight': None, 'birthdate': None, 'team_id': 1610612738, 'position': 'F-C', 'is_active': True}, {'player_id': 1629674, 'first_name': 'Neemias', 'last_name': 'Queta', 'full_name': 'Neemias Queta', 'jersey_name': 'Queta', 'height': None, 'weight': None, 'birthdate': None, 'team_id': 1610612738, 'position': 'C', 'is_active': True}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading CLE...
+API call failed (attempt 1/3): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+Failed loading CLE: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501103', 'season_id': 1, 'game_date': datetime.date(2026, 3, 31), 'team_id': 1610612739, 'opponent_team_id': 1610612747, 'matchup': 'CLE @ LAL', 'home_or_away': 'Away', 'team_score': 113, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501096', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612739, 'opponent_team_id': 1610612762, 'matchup': 'CLE @ UTA', 'home_or_away': 'Away', 'team_score': 122, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501068', 'season_id': 1, 'game_date': datetime.date(2026, 3, 27), 'team_id': 1610612739, 'opponent_team_id': 1610612748, 'matchup': 'CLE vs. MIA', 'home_or_away': 'Home', 'team_score': 149, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501055', 'season_id': 1, 'game_date': datetime.date(2026, 3, 25), 'team_id': 1610612739, 'opponent_team_id': 1610612748, 'matchup': 'CLE vs. MIA', 'home_or_away': 'Home', 'team_score': 103, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501049', 'season_id': 1, 'game_date': datetime.date(2026, 3, 24), 'team_id': 1610612739, 'opponent_team_id': 1610612753, 'matchup': 'CLE vs. ORL', 'home_or_away': 'Home', 'team_score': 136, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501025', 'season_id': 1, 'game_date': datetime.date(2026, 3, 21), 'team_id': 1610612739, 'opponent_team_id': 1610612740, 'matchup': 'CLE @ NOP', 'home_or_away': 'Away', 'team_score': 111, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501011', 'season_id': 1, 'game_date': datetime.date(2026, 3, 19), 'team_id': 1610612739, 'opponent_team_id': 1610612741, 'matchup': 'CLE @ CHI', 'home_or_away': 'Away', 'team_score': 115, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500995', 'season_id': 1, 'game_date': datetime.date(2026, 3, 17), 'team_id': 1610612739, 'opponent_team_id': 1610612749, 'matchup': 'CLE @ MIL', 'home_or_away': 'Away', 'team_score': 123, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 76 total bound parameter sets ...  {'game_id': '0022500091', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612739, 'opponent_team_id': 1610612751, 'matchup': 'CLE @ BKN', 'home_or_away': 'Away', 'team_score': 131, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500003', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612739, 'opponent_team_id': 1610612752, 'matchup': 'CLE @ NYK', 'home_or_away': 'Away', 'team_score': 111, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 477 players.
+Rebuilt player_efficiency for 477 players.
+Rebuilt player predictions for 477 players.
+Unmatched player names from Odds API:
+['C.J. McCollum', 'Carlton Carrington', 'Jaime Jaquez Jr', 'Kelly Oubre Jr', 'Wendell Carter Jr']
+Loaded 106 daily prop lines from Odds API.
+Full NBA refresh complete.
+Teams that failed: ['ATL', 'BOS', 'CLE']
+/Users/nicosommerabadia/statline/statline/src/predictions.py:179: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(
+/Users/nicosommerabadia/statline/statline/src/predictions.py:258: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(add_player_features)
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 526 players.
+Rebuilt player_efficiency for 526 players.
+Rebuilt player predictions for 526 players.
+Unmatched player names from Odds API:
+['Moussa Diabate', 'Paul Reed Jr']
+Loaded 78 daily prop lines from Odds API.
+Full NBA refresh complete.
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 526 players.
+Rebuilt player_efficiency for 526 players.
+Rebuilt player predictions for 526 players.
+Unmatched player names from Odds API:
+['Moussa Diabate', 'Paul Reed Jr']
+Loaded 78 daily prop lines from Odds API.
+Full NBA refresh complete.
