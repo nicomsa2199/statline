@@ -950,22 +950,17 @@ def load_daily_prop_edges():
         dpl.line_value,
         dpl.sportsbook,
         dpl.prop_date,
-        pi.status,
         CASE
             WHEN dpl.stat_type = 'POINTS' THEN pp.pred_points
             WHEN dpl.stat_type = 'REBOUNDS' THEN pp.pred_rebounds
             WHEN dpl.stat_type = 'ASSISTS' THEN pp.pred_assists
-            WHEN dpl.stat_type = 'PRA' THEN (
-                pp.pred_points + pp.pred_rebounds + pp.pred_assists
-            )
+            WHEN dpl.stat_type = 'PRA' THEN (pp.pred_points + pp.pred_rebounds + pp.pred_assists)
         END AS projection,
         CASE
             WHEN dpl.stat_type = 'POINTS' THEN pp.pred_points - dpl.line_value
             WHEN dpl.stat_type = 'REBOUNDS' THEN pp.pred_rebounds - dpl.line_value
             WHEN dpl.stat_type = 'ASSISTS' THEN pp.pred_assists - dpl.line_value
-            WHEN dpl.stat_type = 'PRA' THEN (
-                pp.pred_points + pp.pred_rebounds + pp.pred_assists
-            ) - dpl.line_value
+            WHEN dpl.stat_type = 'PRA' THEN (pp.pred_points + pp.pred_rebounds + pp.pred_assists) - dpl.line_value
         END AS edge
     FROM daily_prop_lines dpl
     JOIN player_predictions pp
@@ -974,14 +969,6 @@ def load_daily_prop_edges():
         ON dpl.player_id = p.player_id
     LEFT JOIN teams t
         ON p.team_id = t.team_id
-    LEFT JOIN (
-        SELECT DISTINCT ON (player_id)
-            player_id,
-            status
-        FROM player_injuries
-        ORDER BY player_id, updated_at DESC NULLS LAST, injury_id DESC
-    ) pi
-        ON dpl.player_id = pi.player_id
     WHERE dpl.prop_date = CURRENT_DATE
     """
     try:
@@ -999,10 +986,7 @@ def load_daily_prop_edges():
     df["confidence"] = df["edge"].apply(prop_confidence)
     df["recommendation"] = df["edge"].apply(prop_call)
 
-    if "status" in df.columns:
-        df["status"] = df["status"].fillna("").astype(str).str.upper()
-
-    df = df.copy()
+    df = df[df["abs_edge"] >= 1.0].copy()
     df = df.sort_values(["abs_edge", "full_name"], ascending=[False, True]).reset_index(drop=True)
 
     return df
@@ -1713,37 +1697,13 @@ elif view == "Daily Prop Engine":
         st.warning("No daily prop lines found for today.")
         st.stop()
 
-    post_days_cooldown = 2
-
-    filtered_for_top = prop_df.copy()
-
-    # exclude questionable / doubtful / out players if status exists
-    if "status" in filtered_for_top.columns:
-        filtered_for_top["status"] = filtered_for_top["status"].astype(str).str.upper()
-        filtered_for_top = filtered_for_top[
-            ~filtered_for_top["status"].isin(["OUT", "DOUBTFUL", "QUESTIONABLE"])
-        ]
-
-    # exclude players recently posted
-    recent_posted_ids = load_recent_posted_player_ids(post_days_cooldown)
-
-    filtered_no_repeats = filtered_for_top[
-        ~filtered_for_top["player_id"].isin(recent_posted_ids)
-    ].copy()
-
-    # fallback if too few options
-    source_for_top = (
-        filtered_no_repeats
-        if len(filtered_no_repeats) >= 5
-        else filtered_for_top
-    )
-
     top5 = (
-        source_for_top.sort_values("abs_edge", ascending=False)
+        prop_df.sort_values("abs_edge", ascending=False)
         .drop_duplicates(subset=["player_id"], keep="first")
         .head(5)
         .copy()
     )
+
     st.markdown('<div class="panel">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Top 5 Prop Edges</div>', unsafe_allow_html=True)
     render_prop_cards(top5, top_n=5)
