@@ -990,6 +990,17 @@ def load_daily_prop_edges():
     df = df.sort_values(["abs_edge", "full_name"], ascending=[False, True]).reset_index(drop=True)
 
     return df
+@st.cache_data(ttl=300)
+def load_recent_posted_player_ids(days_back: int = 2) -> set[int]:
+    sql = """
+    SELECT DISTINCT player_id
+    FROM prop_results
+    WHERE prop_date >= CURRENT_DATE - :days_back
+      AND prop_date < CURRENT_DATE
+    """
+    with engine.begin() as conn:
+        rows = conn.execute(text(sql), {"days_back": days_back}).fetchall()
+    return {int(row[0]) for row in rows}
 def save_props_to_db(df: pd.DataFrame) -> int:
     if df.empty:
         return 0
@@ -1686,13 +1697,36 @@ elif view == "Daily Prop Engine":
         st.warning("No daily prop lines found for today.")
         st.stop()
 
-    top5 = (
-        prop_df.sort_values("abs_edge", ascending=False)
-        .drop_duplicates(subset=["player_id"], keep="first")
-        .head(5)
-        .copy()
-    )
+    post_days_cooldown = 2
 
+filtered_for_top = prop_df.copy()
+
+# exclude questionable / doubtful / out players if status exists
+if "status" in filtered_for_top.columns:
+    filtered_for_top["status"] = filtered_for_top["status"].astype(str).str.upper()
+    filtered_for_top = filtered_for_top[
+        ~filtered_for_top["status"].isin(["OUT", "DOUBTFUL", "QUESTIONABLE"])
+    ]
+
+# exclude players recently posted
+recent_posted_ids = load_recent_posted_player_ids(post_days_cooldown)
+filtered_no_repeats = filtered_for_top[
+    ~filtered_for_top["player_id"].isin(recent_posted_ids)
+].copy()
+
+# if that leaves too few options, allow repeats back in
+source_for_top = (
+    filtered_no_repeats
+    if len(filtered_no_repeats) >= 5
+    else filtered_for_top
+)
+
+top5 = (
+    source_for_top.sort_values("abs_edge", ascending=False)
+    .drop_duplicates(subset=["player_id"], keep="first")
+    .head(5)
+    .copy()
+)
     st.markdown('<div class="panel">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Top 5 Prop Edges</div>', unsafe_allow_html=True)
     render_prop_cards(top5, top_n=5)
