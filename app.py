@@ -950,17 +950,22 @@ def load_daily_prop_edges():
         dpl.line_value,
         dpl.sportsbook,
         dpl.prop_date,
+        pi.status,
         CASE
             WHEN dpl.stat_type = 'POINTS' THEN pp.pred_points
             WHEN dpl.stat_type = 'REBOUNDS' THEN pp.pred_rebounds
             WHEN dpl.stat_type = 'ASSISTS' THEN pp.pred_assists
-            WHEN dpl.stat_type = 'PRA' THEN (pp.pred_points + pp.pred_rebounds + pp.pred_assists)
+            WHEN dpl.stat_type = 'PRA' THEN (
+                pp.pred_points + pp.pred_rebounds + pp.pred_assists
+            )
         END AS projection,
         CASE
             WHEN dpl.stat_type = 'POINTS' THEN pp.pred_points - dpl.line_value
             WHEN dpl.stat_type = 'REBOUNDS' THEN pp.pred_rebounds - dpl.line_value
             WHEN dpl.stat_type = 'ASSISTS' THEN pp.pred_assists - dpl.line_value
-            WHEN dpl.stat_type = 'PRA' THEN (pp.pred_points + pp.pred_rebounds + pp.pred_assists) - dpl.line_value
+            WHEN dpl.stat_type = 'PRA' THEN (
+                pp.pred_points + pp.pred_rebounds + pp.pred_assists
+            ) - dpl.line_value
         END AS edge
     FROM daily_prop_lines dpl
     JOIN player_predictions pp
@@ -969,6 +974,14 @@ def load_daily_prop_edges():
         ON dpl.player_id = p.player_id
     LEFT JOIN teams t
         ON p.team_id = t.team_id
+    LEFT JOIN (
+        SELECT DISTINCT ON (player_id)
+            player_id,
+            status
+        FROM player_injuries
+        ORDER BY player_id, updated_at DESC NULLS LAST, injury_id DESC
+    ) pi
+        ON dpl.player_id = pi.player_id
     WHERE dpl.prop_date = CURRENT_DATE
     """
     try:
@@ -985,6 +998,9 @@ def load_daily_prop_edges():
     df["abs_edge"] = df["edge"].abs()
     df["confidence"] = df["edge"].apply(prop_confidence)
     df["recommendation"] = df["edge"].apply(prop_call)
+
+    if "status" in df.columns:
+        df["status"] = df["status"].fillna("").astype(str).str.upper()
 
     df = df[df["abs_edge"] >= 1.0].copy()
     df = df.sort_values(["abs_edge", "full_name"], ascending=[False, True]).reset_index(drop=True)
