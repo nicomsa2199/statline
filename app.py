@@ -1002,7 +1002,7 @@ def load_daily_prop_edges():
     if "status" in df.columns:
         df["status"] = df["status"].fillna("").astype(str).str.upper()
 
-    df = df[df["abs_edge"] >= 1.0].copy()
+    df = df.copy()
     df = df.sort_values(["abs_edge", "full_name"], ascending=[False, True]).reset_index(drop=True)
 
     return df
