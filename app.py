@@ -1697,36 +1697,44 @@ elif view == "Daily Prop Engine":
         st.warning("No daily prop lines found for today.")
         st.stop()
 
+    elif view == "Daily Prop Engine":
+    prop_df = load_daily_prop_edges()
+
+    st.markdown(...)
+    st.markdown(...)
+
+    if prop_df.empty:
+        st.warning("No daily prop lines found for today.")
+        st.stop()
+
     post_days_cooldown = 2
 
-filtered_for_top = prop_df.copy()
+    filtered_for_top = prop_df.copy()
 
-# exclude questionable / doubtful / out players if status exists
-if "status" in filtered_for_top.columns:
-    filtered_for_top["status"] = filtered_for_top["status"].astype(str).str.upper()
-    filtered_for_top = filtered_for_top[
-        ~filtered_for_top["status"].isin(["OUT", "DOUBTFUL", "QUESTIONABLE"])
-    ]
+    if "status" in filtered_for_top.columns:
+        filtered_for_top["status"] = filtered_for_top["status"].astype(str).str.upper()
+        filtered_for_top = filtered_for_top[
+            ~filtered_for_top["status"].isin(["OUT", "DOUBTFUL", "QUESTIONABLE"])
+        ]
 
-# exclude players recently posted
-recent_posted_ids = load_recent_posted_player_ids(post_days_cooldown)
-filtered_no_repeats = filtered_for_top[
-    ~filtered_for_top["player_id"].isin(recent_posted_ids)
-].copy()
+    recent_posted_ids = load_recent_posted_player_ids(post_days_cooldown)
 
-# if that leaves too few options, allow repeats back in
-source_for_top = (
-    filtered_no_repeats
-    if len(filtered_no_repeats) >= 5
-    else filtered_for_top
-)
+    filtered_no_repeats = filtered_for_top[
+        ~filtered_for_top["player_id"].isin(recent_posted_ids)
+    ].copy()
 
-top5 = (
-    source_for_top.sort_values("abs_edge", ascending=False)
-    .drop_duplicates(subset=["player_id"], keep="first")
-    .head(5)
-    .copy()
-)
+    source_for_top = (
+        filtered_no_repeats
+        if len(filtered_no_repeats) >= 5
+        else filtered_for_top
+    )
+
+    top5 = (
+        source_for_top.sort_values("abs_edge", ascending=False)
+        .drop_duplicates(subset=["player_id"], keep="first")
+        .head(5)
+        .copy()
+    )
     st.markdown('<div class="panel">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Top 5 Prop Edges</div>', unsafe_allow_html=True)
     render_prop_cards(top5, top_n=5)
