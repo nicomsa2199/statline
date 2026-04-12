@@ -48,19 +48,18 @@ def fetch_today_events() -> list[dict]:
     resp.raise_for_status()
     events = resp.json()
 
-    today_utc = datetime.now(timezone.utc).date()
+    print(f"Events returned from Odds API: {len(events)}")
+    for event in events[:5]:
+        print(
+            "Event:",
+            event.get("home_team"),
+            "vs",
+            event.get("away_team"),
+            "| commence_time:",
+            event.get("commence_time"),
+        )
 
-    filtered = []
-    for event in events:
-        commence = event.get("commence_time")
-        if not commence:
-            continue
-
-        event_dt = datetime.fromisoformat(commence.replace("Z", "+00:00"))
-        if event_dt.date() == today_utc:
-            filtered.append(event)
-
-    return filtered
+    return events
 
 
 def fetch_event_props(event_id: str) -> dict:
@@ -236,20 +235,33 @@ def upsert_daily_props(rows: list[dict]) -> int:
 def load_daily_props_from_odds_api() -> None:
     events = fetch_today_events()
     if not events:
-        print("No NBA events found for today.")
+        print("No NBA events found.")
         return
 
-    prop_date = datetime.now(timezone.utc).date().isoformat()
     all_rows = []
 
     for event in events:
         event_id = event["id"]
+        commence = event.get("commence_time")
+
+        if not commence:
+            continue
+
         try:
+            event_dt = datetime.fromisoformat(commence.replace("Z", "+00:00"))
+            prop_date = event_dt.date().isoformat()
+
             payload = fetch_event_props(event_id)
             event_rows = extract_prop_rows(payload, prop_date)
+
+            print(f"Event {event_id} → extracted {len(event_rows)} props")
+
             all_rows.extend(event_rows)
+
         except Exception as e:
             print(f"Failed to fetch props for event {event_id}: {e}")
+
+    print("Total rows collected before insert:", len(all_rows))
 
     inserted = upsert_daily_props(all_rows)
     print(f"Loaded {inserted} daily prop lines from Odds API.")
