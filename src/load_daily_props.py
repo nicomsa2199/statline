@@ -11,7 +11,7 @@ ODDS_API_KEY = os.getenv("ODDS_API_KEY")
 
 SPORT = "basketball_nba"
 REGIONS = "us"
-BOOKMAKERS = "fanduel, draftkings"
+BOOKMAKERS = "fanduel"
 
 MARKET_MAP = {
     "player_points": "POINTS",
