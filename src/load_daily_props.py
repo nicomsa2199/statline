@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, timezone
+from datetime import datetime
 
 import pandas as pd
 import requests
@@ -11,7 +11,7 @@ ODDS_API_KEY = os.getenv("ODDS_API_KEY")
 
 SPORT = "basketball_nba"
 REGIONS = "us"
-BOOKMAKERS = "fanduel"
+BOOKMAKERS = "fanduel,draftkings"
 
 MARKET_MAP = {
     "player_points": "POINTS",
@@ -49,7 +49,7 @@ def fetch_today_events() -> list[dict]:
     events = resp.json()
 
     print(f"Events returned from Odds API: {len(events)}")
-    for event in events[:5]:
+    for event in events[:10]:
         print(
             "Event:",
             event.get("home_team"),
@@ -83,10 +83,14 @@ def extract_prop_rows(event_payload: dict, prop_date: str) -> list[dict]:
     rows = []
 
     bookmakers = event_payload.get("bookmakers", [])
+    print(f"Bookmakers in event payload: {len(bookmakers)}")
+
     for book in bookmakers:
         sportsbook = book.get("title", "Unknown")
+        markets = book.get("markets", [])
+        print(f"  {sportsbook} markets: {[m.get('key') for m in markets]}")
 
-        for market in book.get("markets", []):
+        for market in markets:
             market_key = market.get("key")
             if market_key not in MARKET_MAP:
                 continue
@@ -95,7 +99,7 @@ def extract_prop_rows(event_payload: dict, prop_date: str) -> list[dict]:
 
             for outcome in market.get("outcomes", []):
                 side = outcome.get("name")
-                player_name = outcome.get("description")
+                player_name = outcome.get("description") or outcome.get("participant")
                 line_value = outcome.get("point")
 
                 if side not in ("Over", "Under"):
@@ -113,6 +117,8 @@ def extract_prop_rows(event_payload: dict, prop_date: str) -> list[dict]:
                     }
                 )
 
+    print(f"Raw extracted rows for event date {prop_date}: {len(rows)}")
+
     if not rows:
         return []
 
@@ -122,8 +128,6 @@ def extract_prop_rows(event_payload: dict, prop_date: str) -> list[dict]:
         subset=["player_name", "stat_type", "sportsbook", "prop_date", "line_value"]
     )
 
-    # Keep the lowest line for the same player/stat/book/date.
-    # This is simple and deterministic for now.
     df = (
         df.sort_values(
             ["player_name", "stat_type", "sportsbook", "prop_date", "line_value"],
@@ -165,9 +169,11 @@ def load_name_map() -> pd.DataFrame:
 
 def upsert_daily_props(rows: list[dict]) -> int:
     if not rows:
+        print("No raw prop rows collected before matching.")
         return 0
 
     props_df = pd.DataFrame(rows)
+    print(f"Raw prop rows before matching: {len(props_df)}")
     props_df["norm_name"] = props_df["player_name"].map(normalize_name)
 
     players_df = load_players_lookup()
@@ -179,6 +185,9 @@ def upsert_daily_props(rows: list[dict]) -> int:
         how="left",
     )
 
+    direct_matched = merged["player_id"].notna().sum()
+    print(f"Direct matched rows: {direct_matched}")
+
     if not name_map_df.empty:
         fallback = props_df.merge(
             name_map_df,
@@ -186,13 +195,15 @@ def upsert_daily_props(rows: list[dict]) -> int:
             right_on="api_name",
             how="left",
         )
-
         merged["player_id"] = merged["player_id"].fillna(fallback["player_id"])
+
+    final_matched = merged["player_id"].notna().sum()
+    print(f"Final matched rows after name_map fallback: {final_matched}")
 
     missing = merged[merged["player_id"].isna()]
     if not missing.empty:
         print("Unmatched player names from Odds API:")
-        print(sorted(missing["player_name"].drop_duplicates().tolist()))
+        print(sorted(missing["player_name"].drop_duplicates().tolist())[:100])
 
     merged = merged.dropna(subset=["player_id"]).copy()
     if merged.empty:
@@ -204,6 +215,8 @@ def upsert_daily_props(rows: list[dict]) -> int:
     rows_to_write = merged[
         ["player_id", "stat_type", "line_value", "sportsbook", "prop_date"]
     ].to_dict(orient="records")
+
+    print(f"Rows to write to daily_prop_lines: {len(rows_to_write)}")
 
     upsert_sql = """
     INSERT INTO daily_prop_lines (
@@ -254,14 +267,13 @@ def load_daily_props_from_odds_api() -> None:
             payload = fetch_event_props(event_id)
             event_rows = extract_prop_rows(payload, prop_date)
 
-            print(f"Event {event_id} → extracted {len(event_rows)} props")
-
+            print(f"Event {event_id} -> extracted {len(event_rows)} props")
             all_rows.extend(event_rows)
 
         except Exception as e:
             print(f"Failed to fetch props for event {event_id}: {e}")
 
-    print("Total rows collected before insert:", len(all_rows))
+    print(f"Total rows collected before insert: {len(all_rows)}")
 
     inserted = upsert_daily_props(all_rows)
     print(f"Loaded {inserted} daily prop lines from Odds API.")
