@@ -3728,3 +3728,628 @@ Unmatched player names from Odds API:
 ['Jaime Jaquez Jr', 'R.J. Barrett']
 Loaded 46 daily prop lines from Odds API.
 Full NBA refresh complete.
+Teams and players loaded.
+Loading ATL...
+Failed loading ATL: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501158', 'season_id': 1, 'game_date': datetime.date(2026, 4, 8), 'team_id': 1610612737, 'opponent_team_id': 1610612739, 'matchup': 'ATL @ CLE', 'home_or_away': 'Away', 'team_score': 116, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501143', 'season_id': 1, 'game_date': datetime.date(2026, 4, 6), 'team_id': 1610612737, 'opponent_team_id': 1610612752, 'matchup': 'ATL vs. NYK', 'home_or_away': 'Home', 'team_score': 105, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501122', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612737, 'opponent_team_id': 1610612751, 'matchup': 'ATL @ BKN', 'home_or_away': 'Away', 'team_score': 141, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501107', 'season_id': 1, 'game_date': datetime.date(2026, 4, 1), 'team_id': 1610612737, 'opponent_team_id': 1610612753, 'matchup': 'ATL @ ORL', 'home_or_away': 'Away', 'team_score': 130, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501092', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612737, 'opponent_team_id': 1610612738, 'matchup': 'ATL vs. BOS', 'home_or_away': 'Home', 'team_score': 112, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501078', 'season_id': 1, 'game_date': datetime.date(2026, 3, 28), 'team_id': 1610612737, 'opponent_team_id': 1610612758, 'matchup': 'ATL vs. SAC', 'home_or_away': 'Home', 'team_score': 123, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501067', 'season_id': 1, 'game_date': datetime.date(2026, 3, 27), 'team_id': 1610612737, 'opponent_team_id': 1610612738, 'matchup': 'ATL @ BOS', 'home_or_away': 'Away', 'team_score': 102, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501051', 'season_id': 1, 'game_date': datetime.date(2026, 3, 25), 'team_id': 1610612737, 'opponent_team_id': 1610612765, 'matchup': 'ATL @ DET', 'home_or_away': 'Away', 'team_score': 130, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 80 total bound parameter sets ...  {'game_id': '0022500090', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612737, 'opponent_team_id': 1610612753, 'matchup': 'ATL @ ORL', 'home_or_away': 'Away', 'team_score': 111, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500082', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612737, 'opponent_team_id': 1610612761, 'matchup': 'ATL vs. TOR', 'home_or_away': 'Home', 'team_score': 118, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading BOS...
+Failed loading BOS: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading CLE...
+API call failed (attempt 1/3): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 527 players.
+Rebuilt player_efficiency for 527 players.
+Rebuilt player predictions for 527 players.
+Unmatched player names from Odds API:
+['C.J. McCollum', 'Kelly Oubre Jr', 'Moussa Diabate', 'R.J. Barrett']
+Loaded 60 daily prop lines from Odds API.
+Full NBA refresh complete.
+Teams that failed: ['ATL', 'BOS']
+Teams and players loaded.
+Loading ATL...
+Failed loading ATL: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO seasons (season_label)
+                VALUES (%(season_label)s)
+                ON CONFLICT (season_label) DO NOTHING
+            ]
+[parameters: {'season_label': '2025-26'}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading BOS...
+Failed loading BOS: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501174', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612738, 'opponent_team_id': 1610612740, 'matchup': 'BOS vs. NOP', 'home_or_away': 'Home', 'team_score': 144, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501168', 'season_id': 1, 'game_date': datetime.date(2026, 4, 9), 'team_id': 1610612738, 'opponent_team_id': 1610612752, 'matchup': 'BOS @ NYK', 'home_or_away': 'Away', 'team_score': 106, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501149', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612738, 'opponent_team_id': 1610612766, 'matchup': 'BOS vs. CHA', 'home_or_away': 'Home', 'team_score': 113, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501132', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612738, 'opponent_team_id': 1610612761, 'matchup': 'BOS vs. TOR', 'home_or_away': 'Home', 'team_score': 115, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501126', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612738, 'opponent_team_id': 1610612749, 'matchup': 'BOS @ MIL', 'home_or_away': 'Away', 'team_score': 133, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501106', 'season_id': 1, 'game_date': datetime.date(2026, 4, 1), 'team_id': 1610612738, 'opponent_team_id': 1610612748, 'matchup': 'BOS @ MIA', 'home_or_away': 'Away', 'team_score': 147, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501092', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612738, 'opponent_team_id': 1610612737, 'matchup': 'BOS @ ATL', 'home_or_away': 'Away', 'team_score': 102, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501085', 'season_id': 1, 'game_date': datetime.date(2026, 3, 29), 'team_id': 1610612738, 'opponent_team_id': 1610612766, 'matchup': 'BOS @ CHA', 'home_or_away': 'Away', 'team_score': 114, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 81 total bound parameter sets ...  {'game_id': '0022500018', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612738, 'opponent_team_id': 1610612752, 'matchup': 'BOS @ NYK', 'home_or_away': 'Away', 'team_score': 95, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022500083', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612738, 'opponent_team_id': 1610612755, 'matchup': 'BOS vs. PHI', 'home_or_away': 'Home', 'team_score': 116, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading CLE...
+API call failed (attempt 1/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+Failed loading CLE: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT player_id FROM players]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading NOP...
+API call failed (attempt 1/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+Failed loading NOP: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT player_id FROM players]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading CHI...
+API call failed (attempt 1/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+Failed loading CHI: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501177', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612741, 'opponent_team_id': 1610612753, 'matchup': 'CHI vs. ORL', 'home_or_away': 'Home', 'team_score': 103, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501166', 'season_id': 1, 'game_date': datetime.date(2026, 4, 9), 'team_id': 1610612741, 'opponent_team_id': 1610612764, 'matchup': 'CHI @ WAS', 'home_or_away': 'Away', 'team_score': 119, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501148', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612741, 'opponent_team_id': 1610612764, 'matchup': 'CHI @ WAS', 'home_or_away': 'Away', 'team_score': 129, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501134', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612741, 'opponent_team_id': 1610612756, 'matchup': 'CHI vs. PHX', 'home_or_away': 'Home', 'team_score': 110, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501123', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612741, 'opponent_team_id': 1610612752, 'matchup': 'CHI @ NYK', 'home_or_away': 'Away', 'team_score': 96, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501109', 'season_id': 1, 'game_date': datetime.date(2026, 4, 1), 'team_id': 1610612741, 'opponent_team_id': 1610612754, 'matchup': 'CHI vs. IND', 'home_or_away': 'Home', 'team_score': 126, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501094', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612741, 'opponent_team_id': 1610612759, 'matchup': 'CHI @ SAS', 'home_or_away': 'Away', 'team_score': 114, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501079', 'season_id': 1, 'game_date': datetime.date(2026, 3, 28), 'team_id': 1610612741, 'opponent_team_id': 1610612763, 'matchup': 'CHI @ MEM', 'home_or_away': 'Away', 'team_score': 124, 'opponent_score': None, 'result': 'L'}  ... displaying 10 of 81 total bound parameter sets ...  {'game_id': '0022500100', 'season_id': 1, 'game_date': datetime.date(2025, 10, 25), 'team_id': 1610612741, 'opponent_team_id': 1610612753, 'matchup': 'CHI @ ORL', 'home_or_away': 'Away', 'team_score': 110, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500084', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612741, 'opponent_team_id': 1610612765, 'matchup': 'CHI vs. DET', 'home_or_away': 'Home', 'team_score': 115, 'opponent_score': None, 'result': 'W'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading DAL...
+Failed loading DAL: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501180', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612742, 'opponent_team_id': 1610612759, 'matchup': 'DAL @ SAS', 'home_or_away': 'Away', 'team_score': 120, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501164', 'season_id': 1, 'game_date': datetime.date(2026, 4, 8), 'team_id': 1610612742, 'opponent_team_id': 1610612756, 'matchup': 'DAL @ PHX', 'home_or_away': 'Away', 'team_score': 107, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501156', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612742, 'opponent_team_id': 1610612746, 'matchup': 'DAL @ LAC', 'home_or_away': 'Away', 'team_score': 103, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501140', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612742, 'opponent_team_id': 1610612747, 'matchup': 'DAL vs. LAL', 'home_or_away': 'Home', 'team_score': 134, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501127', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612742, 'opponent_team_id': 1610612753, 'matchup': 'DAL vs. ORL', 'home_or_away': 'Home', 'team_score': 127, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022500652', 'season_id': 1, 'game_date': datetime.date(2026, 3, 31), 'team_id': 1610612742, 'opponent_team_id': 1610612749, 'matchup': 'DAL @ MIL', 'home_or_away': 'Away', 'team_score': 99, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501095', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612742, 'opponent_team_id': 1610612750, 'matchup': 'DAL vs. MIN', 'home_or_away': 'Home', 'team_score': 94, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501074', 'season_id': 1, 'game_date': datetime.date(2026, 3, 27), 'team_id': 1610612742, 'opponent_team_id': 1610612757, 'matchup': 'DAL @ POR', 'home_or_away': 'Away', 'team_score': 100, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 81 total bound parameter sets ...  {'game_id': '0022500096', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612742, 'opponent_team_id': 1610612764, 'matchup': 'DAL vs. WAS', 'home_or_away': 'Home', 'team_score': 107, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022500004', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612742, 'opponent_team_id': 1610612759, 'matchup': 'DAL vs. SAS', 'home_or_away': 'Home', 'team_score': 92, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading DEN...
+API call failed (attempt 1/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+Failed loading DEN: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501182', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612743, 'opponent_team_id': 1610612760, 'matchup': 'DEN vs. OKC', 'home_or_away': 'Home', 'team_score': 127, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501162', 'season_id': 1, 'game_date': datetime.date(2026, 4, 8), 'team_id': 1610612743, 'opponent_team_id': 1610612763, 'matchup': 'DEN vs. MEM', 'home_or_away': 'Home', 'team_score': 136, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501147', 'season_id': 1, 'game_date': datetime.date(2026, 4, 6), 'team_id': 1610612743, 'opponent_team_id': 1610612757, 'matchup': 'DEN vs. POR', 'home_or_away': 'Home', 'team_score': 137, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501130', 'season_id': 1, 'game_date': datetime.date(2026, 4, 4), 'team_id': 1610612743, 'opponent_team_id': 1610612759, 'matchup': 'DEN vs. SAS', 'home_or_away': 'Home', 'team_score': 136, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501112', 'season_id': 1, 'game_date': datetime.date(2026, 4, 1), 'team_id': 1610612743, 'opponent_team_id': 1610612762, 'matchup': 'DEN @ UTA', 'home_or_away': 'Away', 'team_score': 130, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501090', 'season_id': 1, 'game_date': datetime.date(2026, 3, 29), 'team_id': 1610612743, 'opponent_team_id': 1610612744, 'matchup': 'DEN vs. GSW', 'home_or_away': 'Home', 'team_score': 116, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501072', 'season_id': 1, 'game_date': datetime.date(2026, 3, 27), 'team_id': 1610612743, 'opponent_team_id': 1610612762, 'matchup': 'DEN vs. UTA', 'home_or_away': 'Home', 'team_score': 135, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501059', 'season_id': 1, 'game_date': datetime.date(2026, 3, 25), 'team_id': 1610612743, 'opponent_team_id': 1610612742, 'matchup': 'DEN vs. DAL', 'home_or_away': 'Home', 'team_score': 142, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 81 total bound parameter sets ...  {'game_id': '0022500104', 'season_id': 1, 'game_date': datetime.date(2025, 10, 25), 'team_id': 1610612743, 'opponent_team_id': 1610612756, 'matchup': 'DEN vs. PHX', 'home_or_away': 'Home', 'team_score': 133, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500006', 'season_id': 1, 'game_date': datetime.date(2025, 10, 23), 'team_id': 1610612743, 'opponent_team_id': 1610612744, 'matchup': 'DEN @ GSW', 'home_or_away': 'Away', 'team_score': 131, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading GSW...
+API call failed (attempt 1/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+API call failed (attempt 2/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+API call failed (attempt 1/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+API call failed (attempt 2/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+Failed loading GSW: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT player_id FROM players]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading HOU...
+API call failed (attempt 1/3): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+API call failed (attempt 2/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+Failed loading HOU: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501178', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612745, 'opponent_team_id': 1610612750, 'matchup': 'HOU vs. MIN', 'home_or_away': 'Home', 'team_score': 132, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501169', 'season_id': 1, 'game_date': datetime.date(2026, 4, 9), 'team_id': 1610612745, 'opponent_team_id': 1610612755, 'matchup': 'HOU vs. PHI', 'home_or_away': 'Home', 'team_score': 113, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501157', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612745, 'opponent_team_id': 1610612756, 'matchup': 'HOU @ PHX', 'home_or_away': 'Away', 'team_score': 119, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501142', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612745, 'opponent_team_id': 1610612744, 'matchup': 'HOU @ GSW', 'home_or_away': 'Away', 'team_score': 117, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501124', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612745, 'opponent_team_id': 1610612762, 'matchup': 'HOU vs. UTA', 'home_or_away': 'Home', 'team_score': 140, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501110', 'season_id': 1, 'game_date': datetime.date(2026, 4, 1), 'team_id': 1610612745, 'opponent_team_id': 1610612749, 'matchup': 'HOU vs. MIL', 'home_or_away': 'Home', 'team_score': 119, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501102', 'season_id': 1, 'game_date': datetime.date(2026, 3, 31), 'team_id': 1610612745, 'opponent_team_id': 1610612752, 'matchup': 'HOU vs. NYK', 'home_or_away': 'Home', 'team_score': 111, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501088', 'season_id': 1, 'game_date': datetime.date(2026, 3, 29), 'team_id': 1610612745, 'opponent_team_id': 1610612740, 'matchup': 'HOU @ NOP', 'home_or_away': 'Away', 'team_score': 134, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 81 total bound parameter sets ...  {'game_id': '0022500093', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612745, 'opponent_team_id': 1610612765, 'matchup': 'HOU vs. DET', 'home_or_away': 'Home', 'team_score': 111, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022500001', 'season_id': 1, 'game_date': datetime.date(2025, 10, 21), 'team_id': 1610612745, 'opponent_team_id': 1610612760, 'matchup': 'HOU @ OKC', 'home_or_away': 'Away', 'team_score': 124, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading LAC...
+API call failed (attempt 1/3): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+Failed loading LAC: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501183', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612746, 'opponent_team_id': 1610612757, 'matchup': 'LAC @ POR', 'home_or_away': 'Away', 'team_score': 97, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501163', 'season_id': 1, 'game_date': datetime.date(2026, 4, 8), 'team_id': 1610612746, 'opponent_team_id': 1610612760, 'matchup': 'LAC vs. OKC', 'home_or_away': 'Home', 'team_score': 110, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501156', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612746, 'opponent_team_id': 1610612742, 'matchup': 'LAC vs. DAL', 'home_or_away': 'Home', 'team_score': 116, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501141', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612746, 'opponent_team_id': 1610612758, 'matchup': 'LAC @ SAC', 'home_or_away': 'Away', 'team_score': 138, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501119', 'season_id': 1, 'game_date': datetime.date(2026, 4, 2), 'team_id': 1610612746, 'opponent_team_id': 1610612759, 'matchup': 'LAC vs. SAS', 'home_or_away': 'Home', 'team_score': 99, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501104', 'season_id': 1, 'game_date': datetime.date(2026, 3, 31), 'team_id': 1610612746, 'opponent_team_id': 1610612757, 'matchup': 'LAC vs. POR', 'home_or_away': 'Home', 'team_score': 104, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501082', 'season_id': 1, 'game_date': datetime.date(2026, 3, 29), 'team_id': 1610612746, 'opponent_team_id': 1610612749, 'matchup': 'LAC @ MIL', 'home_or_away': 'Away', 'team_score': 127, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501066', 'season_id': 1, 'game_date': datetime.date(2026, 3, 27), 'team_id': 1610612746, 'opponent_team_id': 1610612754, 'matchup': 'LAC @ IND', 'home_or_away': 'Away', 'team_score': 114, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 81 total bound parameter sets ...  {'game_id': '0022500099', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612746, 'opponent_team_id': 1610612756, 'matchup': 'LAC vs. PHX', 'home_or_away': 'Home', 'team_score': 129, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500087', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612746, 'opponent_team_id': 1610612762, 'matchup': 'LAC @ UTA', 'home_or_away': 'Away', 'team_score': 108, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading LAL...
+API call failed (attempt 1/3): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+API call failed (attempt 2/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Max retries exceeded with url: /stats/leaguegamefinder?Conference=&DateFrom=&DateTo=&Division=&DraftNumber=&DraftRound=&DraftTeamID=&DraftYear=&EqAST=&EqBLK=&EqDD=&EqDREB=&EqFG3A=&EqFG3M=&EqFG3_PCT=&EqFGA=&EqFGM=&EqFG_PCT=&EqFTA=&EqFTM=&EqFT_PCT=&EqMINUTES=&EqOREB=&EqPF=&EqPTS=&EqREB=&EqSTL=&EqTD=&EqTOV=&GameID=&GtAST=&GtBLK=&GtDD=&GtDREB=&GtFG3A=&GtFG3M=&GtFG3_PCT=&GtFGA=&GtFGM=&GtFG_PCT=&GtFTA=&GtFTM=&GtFT_PCT=&GtMINUTES=&GtOREB=&GtPF=&GtPTS=&GtREB=&GtSTL=&GtTD=&GtTOV=&LeagueID=00&Location=&LtAST=&LtBLK=&LtDD=&LtDREB=&LtFG3A=&LtFG3M=&LtFG3_PCT=&LtFGA=&LtFGM=&LtFG_PCT=&LtFTA=&LtFTM=&LtFT_PCT=&LtMINUTES=&LtOREB=&LtPF=&LtPTS=&LtREB=&LtSTL=&LtTD=&LtTOV=&Outcome=&PORound=&PlayerID=&PlayerOrTeam=T&RookieYear=&Season=2025-26&SeasonSegment=&SeasonType=Regular+Season&StarterBench=&TeamID=1610612747&VsConference=&VsDivision=&VsTeamID=&YearsExperience= (Caused by ConnectTimeoutError(<HTTPSConnection(host='stats.nba.com', port=443) at 0x10f1db390>, 'Connection to stats.nba.com timed out. (connect timeout=30)'))
+API call failed (attempt 3/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Max retries exceeded with url: /stats/leaguegamefinder?Conference=&DateFrom=&DateTo=&Division=&DraftNumber=&DraftRound=&DraftTeamID=&DraftYear=&EqAST=&EqBLK=&EqDD=&EqDREB=&EqFG3A=&EqFG3M=&EqFG3_PCT=&EqFGA=&EqFGM=&EqFG_PCT=&EqFTA=&EqFTM=&EqFT_PCT=&EqMINUTES=&EqOREB=&EqPF=&EqPTS=&EqREB=&EqSTL=&EqTD=&EqTOV=&GameID=&GtAST=&GtBLK=&GtDD=&GtDREB=&GtFG3A=&GtFG3M=&GtFG3_PCT=&GtFGA=&GtFGM=&GtFG_PCT=&GtFTA=&GtFTM=&GtFT_PCT=&GtMINUTES=&GtOREB=&GtPF=&GtPTS=&GtREB=&GtSTL=&GtTD=&GtTOV=&LeagueID=00&Location=&LtAST=&LtBLK=&LtDD=&LtDREB=&LtFG3A=&LtFG3M=&LtFG3_PCT=&LtFGA=&LtFGM=&LtFG_PCT=&LtFTA=&LtFTM=&LtFT_PCT=&LtMINUTES=&LtOREB=&LtPF=&LtPTS=&LtREB=&LtSTL=&LtTD=&LtTOV=&Outcome=&PORound=&PlayerID=&PlayerOrTeam=T&RookieYear=&Season=2025-26&SeasonSegment=&SeasonType=Regular+Season&StarterBench=&TeamID=1610612747&VsConference=&VsDivision=&VsTeamID=&YearsExperience= (Caused by ConnectTimeoutError(<HTTPSConnection(host='stats.nba.com', port=443) at 0x10f1db250>, 'Connection to stats.nba.com timed out. (connect timeout=30)'))
+Failed loading LAL: HTTPSConnectionPool(host='stats.nba.com', port=443): Max retries exceeded with url: /stats/leaguegamefinder?Conference=&DateFrom=&DateTo=&Division=&DraftNumber=&DraftRound=&DraftTeamID=&DraftYear=&EqAST=&EqBLK=&EqDD=&EqDREB=&EqFG3A=&EqFG3M=&EqFG3_PCT=&EqFGA=&EqFGM=&EqFG_PCT=&EqFTA=&EqFTM=&EqFT_PCT=&EqMINUTES=&EqOREB=&EqPF=&EqPTS=&EqREB=&EqSTL=&EqTD=&EqTOV=&GameID=&GtAST=&GtBLK=&GtDD=&GtDREB=&GtFG3A=&GtFG3M=&GtFG3_PCT=&GtFGA=&GtFGM=&GtFG_PCT=&GtFTA=&GtFTM=&GtFT_PCT=&GtMINUTES=&GtOREB=&GtPF=&GtPTS=&GtREB=&GtSTL=&GtTD=&GtTOV=&LeagueID=00&Location=&LtAST=&LtBLK=&LtDD=&LtDREB=&LtFG3A=&LtFG3M=&LtFG3_PCT=&LtFGA=&LtFGM=&LtFG_PCT=&LtFTA=&LtFTM=&LtFT_PCT=&LtMINUTES=&LtOREB=&LtPF=&LtPTS=&LtREB=&LtSTL=&LtTD=&LtTOV=&Outcome=&PORound=&PlayerID=&PlayerOrTeam=T&RookieYear=&Season=2025-26&SeasonSegment=&SeasonType=Regular+Season&StarterBench=&TeamID=1610612747&VsConference=&VsDivision=&VsTeamID=&YearsExperience= (Caused by ConnectTimeoutError(<HTTPSConnection(host='stats.nba.com', port=443) at 0x10f1db250>, 'Connection to stats.nba.com timed out. (connect timeout=30)'))
+Loading MIA...
+Failed loading MIA: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO seasons (season_label)
+                VALUES (%(season_label)s)
+                ON CONFLICT (season_label) DO NOTHING
+            ]
+[parameters: {'season_label': '2025-26'}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading MIL...
+Failed loading MIL: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501179', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612749, 'opponent_team_id': 1610612751, 'matchup': 'MIL vs. BKN', 'home_or_away': 'Home', 'team_score': 125, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501160', 'season_id': 1, 'game_date': datetime.date(2026, 4, 8), 'team_id': 1610612749, 'opponent_team_id': 1610612765, 'matchup': 'MIL @ DET', 'home_or_away': 'Away', 'team_score': 111, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501150', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612749, 'opponent_team_id': 1610612751, 'matchup': 'MIL @ BKN', 'home_or_away': 'Away', 'team_score': 90, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501135', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612749, 'opponent_team_id': 1610612763, 'matchup': 'MIL vs. MEM', 'home_or_away': 'Home', 'team_score': 131, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501126', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612749, 'opponent_team_id': 1610612738, 'matchup': 'MIL vs. BOS', 'home_or_away': 'Home', 'team_score': 101, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501110', 'season_id': 1, 'game_date': datetime.date(2026, 4, 1), 'team_id': 1610612749, 'opponent_team_id': 1610612745, 'matchup': 'MIL @ HOU', 'home_or_away': 'Away', 'team_score': 113, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022500652', 'season_id': 1, 'game_date': datetime.date(2026, 3, 31), 'team_id': 1610612749, 'opponent_team_id': 1610612742, 'matchup': 'MIL vs. DAL', 'home_or_away': 'Home', 'team_score': 123, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501082', 'season_id': 1, 'game_date': datetime.date(2026, 3, 29), 'team_id': 1610612749, 'opponent_team_id': 1610612746, 'matchup': 'MIL vs. LAC', 'home_or_away': 'Home', 'team_score': 113, 'opponent_score': None, 'result': 'L'}  ... displaying 10 of 81 total bound parameter sets ...  {'game_id': '0022500092', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612749, 'opponent_team_id': 1610612761, 'matchup': 'MIL @ TOR', 'home_or_away': 'Away', 'team_score': 122, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500086', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612749, 'opponent_team_id': 1610612764, 'matchup': 'MIL vs. WAS', 'home_or_away': 'Home', 'team_score': 133, 'opponent_score': None, 'result': 'W'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading MIN...
+API call failed (attempt 1/3): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+Failed loading MIN: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501178', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612750, 'opponent_team_id': 1610612745, 'matchup': 'MIN @ HOU', 'home_or_away': 'Away', 'team_score': 136, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501159', 'season_id': 1, 'game_date': datetime.date(2026, 4, 8), 'team_id': 1610612750, 'opponent_team_id': 1610612753, 'matchup': 'MIN @ ORL', 'home_or_away': 'Away', 'team_score': 120, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501152', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612750, 'opponent_team_id': 1610612754, 'matchup': 'MIN @ IND', 'home_or_away': 'Away', 'team_score': 124, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501137', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612750, 'opponent_team_id': 1610612766, 'matchup': 'MIN vs. CHA', 'home_or_away': 'Home', 'team_score': 108, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501121', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612750, 'opponent_team_id': 1610612755, 'matchup': 'MIN @ PHI', 'home_or_away': 'Away', 'team_score': 103, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501115', 'season_id': 1, 'game_date': datetime.date(2026, 4, 2), 'team_id': 1610612750, 'opponent_team_id': 1610612765, 'matchup': 'MIN @ DET', 'home_or_away': 'Away', 'team_score': 108, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501095', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612750, 'opponent_team_id': 1610612742, 'matchup': 'MIN @ DAL', 'home_or_away': 'Away', 'team_score': 124, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501080', 'season_id': 1, 'game_date': datetime.date(2026, 3, 28), 'team_id': 1610612750, 'opponent_team_id': 1610612765, 'matchup': 'MIN vs. DET', 'home_or_away': 'Home', 'team_score': 87, 'opponent_score': None, 'result': 'L'}  ... displaying 10 of 81 total bound parameter sets ...  {'game_id': '0022500019', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612750, 'opponent_team_id': 1610612747, 'matchup': 'MIN @ LAL', 'home_or_away': 'Away', 'team_score': 110, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022500089', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612750, 'opponent_team_id': 1610612757, 'matchup': 'MIN @ POR', 'home_or_away': 'Away', 'team_score': 118, 'opponent_score': None, 'result': 'W'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading BKN...
+API call failed (attempt 1/3): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+API call failed (attempt 2/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+Failed loading BKN: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501179', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612751, 'opponent_team_id': 1610612749, 'matchup': 'BKN @ MIL', 'home_or_away': 'Away', 'team_score': 108, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501167', 'season_id': 1, 'game_date': datetime.date(2026, 4, 9), 'team_id': 1610612751, 'opponent_team_id': 1610612754, 'matchup': 'BKN vs. IND', 'home_or_away': 'Home', 'team_score': 94, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501150', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612751, 'opponent_team_id': 1610612749, 'matchup': 'BKN vs. MIL', 'home_or_away': 'Home', 'team_score': 96, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501133', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612751, 'opponent_team_id': 1610612764, 'matchup': 'BKN vs. WAS', 'home_or_away': 'Home', 'team_score': 121, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501122', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612751, 'opponent_team_id': 1610612737, 'matchup': 'BKN vs. ATL', 'home_or_away': 'Home', 'team_score': 107, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501100', 'season_id': 1, 'game_date': datetime.date(2026, 3, 31), 'team_id': 1610612751, 'opponent_team_id': 1610612766, 'matchup': 'BKN vs. CHA', 'home_or_away': 'Home', 'team_score': 86, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501084', 'season_id': 1, 'game_date': datetime.date(2026, 3, 29), 'team_id': 1610612751, 'opponent_team_id': 1610612758, 'matchup': 'BKN vs. SAC', 'home_or_away': 'Home', 'team_score': 116, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501075', 'season_id': 1, 'game_date': datetime.date(2026, 3, 27), 'team_id': 1610612751, 'opponent_team_id': 1610612747, 'matchup': 'BKN @ LAL', 'home_or_away': 'Away', 'team_score': 99, 'opponent_score': None, 'result': 'L'}  ... displaying 10 of 81 total bound parameter sets ...  {'game_id': '0022500091', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612751, 'opponent_team_id': 1610612739, 'matchup': 'BKN vs. CLE', 'home_or_away': 'Home', 'team_score': 124, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022500080', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612751, 'opponent_team_id': 1610612766, 'matchup': 'BKN @ CHA', 'home_or_away': 'Away', 'team_score': 117, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
