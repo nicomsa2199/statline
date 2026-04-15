@@ -4,8 +4,12 @@ from datetime import datetime
 import pandas as pd
 import requests
 from sqlalchemy import text
+from dotenv import load_dotenv
 
 from src.db import engine
+
+# 🔑 load .env
+load_dotenv()
 
 ODDS_API_KEY = os.getenv("ODDS_API_KEY")
 
@@ -24,16 +28,19 @@ EVENTS_URL = f"https://api.the-odds-api.com/v4/sports/{SPORT}/odds"
 EVENT_ODDS_URL = f"https://api.the-odds-api.com/v4/sports/{SPORT}/events/{{event_id}}/odds"
 
 
-def _require_api_key() -> None:
+def _require_api_key():
     if not ODDS_API_KEY:
-        raise ValueError("ODDS_API_KEY is not set.")
+        raise ValueError("❌ ODDS_API_KEY not loaded. Check your .env")
 
 
-def normalize_name(name: str) -> str:
+def normalize_name(name):
     return " ".join(str(name).strip().lower().split())
 
 
-def fetch_today_events() -> list[dict]:
+# ======================
+# FETCH EVENTS
+# ======================
+def fetch_today_events():
     _require_api_key()
 
     params = {
@@ -45,24 +52,22 @@ def fetch_today_events() -> list[dict]:
     }
 
     resp = requests.get(EVENTS_URL, params=params, timeout=30)
+
+    print("EVENTS STATUS:", resp.status_code)
+    print("EVENTS PREVIEW:", resp.text[:300])
+
     resp.raise_for_status()
     events = resp.json()
 
-    print(f"Events returned from Odds API: {len(events)}")
-    for event in events[:10]:
-        print(
-            "Event:",
-            event.get("home_team"),
-            "vs",
-            event.get("away_team"),
-            "| commence_time:",
-            event.get("commence_time"),
-        )
+    print(f"Events returned: {len(events)}")
 
     return events
 
 
-def fetch_event_props(event_id: str) -> dict:
+# ======================
+# FETCH EVENT PROPS
+# ======================
+def fetch_event_props(event_id):
     _require_api_key()
 
     params = {
@@ -75,27 +80,31 @@ def fetch_event_props(event_id: str) -> dict:
 
     url = EVENT_ODDS_URL.format(event_id=event_id)
     resp = requests.get(url, params=params, timeout=30)
+
+    print(f"\nEVENT {event_id} STATUS:", resp.status_code)
+    print(f"EVENT {event_id} PREVIEW:", resp.text[:200])
+
     resp.raise_for_status()
     return resp.json()
 
 
-def extract_prop_rows(event_payload: dict, prop_date: str) -> list[dict]:
+# ======================
+# EXTRACT PROPS
+# ======================
+def extract_prop_rows(event_payload, prop_date):
     rows = []
 
     bookmakers = event_payload.get("bookmakers", [])
-    print(f"Bookmakers in event payload: {len(bookmakers)}")
+    print("Bookmakers found:", len(bookmakers))
 
     for book in bookmakers:
         sportsbook = book.get("title", "Unknown")
-        markets = book.get("markets", [])
-        print(f"  {sportsbook} markets: {[m.get('key') for m in markets]}")
 
-        for market in markets:
-            market_key = market.get("key")
-            if market_key not in MARKET_MAP:
+        for market in book.get("markets", []):
+            if market.get("key") not in MARKET_MAP:
                 continue
 
-            stat_type = MARKET_MAP[market_key]
+            stat_type = MARKET_MAP[market["key"]]
 
             for outcome in market.get("outcomes", []):
                 side = outcome.get("name")
@@ -117,97 +126,58 @@ def extract_prop_rows(event_payload: dict, prop_date: str) -> list[dict]:
                     }
                 )
 
-    print(f"Raw extracted rows for event date {prop_date}: {len(rows)}")
-
-    if not rows:
-        return []
-
-    df = pd.DataFrame(rows)
-
-    df = df.drop_duplicates(
-        subset=["player_name", "stat_type", "sportsbook", "prop_date", "line_value"]
-    )
-
-    df = (
-        df.sort_values(
-            ["player_name", "stat_type", "sportsbook", "prop_date", "line_value"],
-            ascending=[True, True, True, True, True],
-        )
-        .drop_duplicates(
-            subset=["player_name", "stat_type", "sportsbook", "prop_date"],
-            keep="first",
-        )
-    )
-
-    return df.to_dict(orient="records")
+    print("Rows extracted:", len(rows))
+    return rows
 
 
-def load_players_lookup() -> pd.DataFrame:
-    q = """
-    SELECT player_id, full_name
-    FROM players
-    """
+# ======================
+# LOAD PLAYERS
+# ======================
+def load_players_lookup():
+    q = "SELECT player_id, full_name FROM players"
     with engine.begin() as conn:
-        players_df = pd.read_sql(text(q), conn)
+        df = pd.read_sql(text(q), conn)
 
-    players_df["norm_name"] = players_df["full_name"].map(normalize_name)
-    return players_df
+    df["norm_name"] = df["full_name"].map(normalize_name)
+    return df
 
 
-def load_name_map() -> pd.DataFrame:
-    q = """
-    SELECT api_name, player_id
-    FROM player_name_map
-    """
+def load_name_map():
     try:
         with engine.begin() as conn:
-            name_map_df = pd.read_sql(text(q), conn)
-        return name_map_df
-    except Exception:
-        return pd.DataFrame(columns=["api_name", "player_id"])
+            df = pd.read_sql(text("SELECT api_name, player_id FROM player_name_map"), conn)
+        return df
+    except:
+        return pd.DataFrame()
 
 
-def upsert_daily_props(rows: list[dict]) -> int:
+# ======================
+# UPSERT
+# ======================
+def upsert_daily_props(rows):
     if not rows:
-        print("No raw prop rows collected before matching.")
+        print("❌ No props collected")
         return 0
 
-    props_df = pd.DataFrame(rows)
-    print(f"Raw prop rows before matching: {len(props_df)}")
-    props_df["norm_name"] = props_df["player_name"].map(normalize_name)
+    df = pd.DataFrame(rows)
+    df["norm_name"] = df["player_name"].map(normalize_name)
 
-    players_df = load_players_lookup()
-    name_map_df = load_name_map()
+    players = load_players_lookup()
+    name_map = load_name_map()
 
-    merged = props_df.merge(
-        players_df[["player_id", "norm_name"]],
-        on="norm_name",
-        how="left",
-    )
+    merged = df.merge(players[["player_id", "norm_name"]], on="norm_name", how="left")
 
-    direct_matched = merged["player_id"].notna().sum()
-    print(f"Direct matched rows: {direct_matched}")
+    print("Matched players:", merged["player_id"].notna().sum())
 
-    if not name_map_df.empty:
-        fallback = props_df.merge(
-            name_map_df,
-            left_on="player_name",
-            right_on="api_name",
-            how="left",
-        )
+    if not name_map.empty:
+        fallback = df.merge(name_map, left_on="player_name", right_on="api_name", how="left")
         merged["player_id"] = merged["player_id"].fillna(fallback["player_id"])
 
-    final_matched = merged["player_id"].notna().sum()
-    print(f"Final matched rows after name_map fallback: {final_matched}")
+    merged = merged.dropna(subset=["player_id"])
+    print("Final matched:", len(merged))
 
-    missing = merged[merged["player_id"].isna()]
-    if not missing.empty:
-        print("Unmatched player names from Odds API:")
-        print(sorted(missing["player_name"].drop_duplicates().tolist())[:100])
-
-    merged = merged.dropna(subset=["player_id"]).copy()
     if merged.empty:
-        print("No prop lines matched players in your database.")
+        print("❌ No matches after mapping")
         return 0
 
     merged["player_id"] = merged["player_id"].astype(int)
@@ -216,22 +186,14 @@ def upsert_daily_props(rows: list[dict]) -> int:
         ["player_id", "stat_type", "line_value", "sportsbook", "prop_date"]
     ].to_dict(orient="records")
 
-    print(f"Rows to write to daily_prop_lines: {len(rows_to_write)}")
+    print("Writing rows:", len(rows_to_write))
 
-    upsert_sql = """
+    sql = """
     INSERT INTO daily_prop_lines (
-        player_id,
-        stat_type,
-        line_value,
-        sportsbook,
-        prop_date
+        player_id, stat_type, line_value, sportsbook, prop_date
     )
     VALUES (
-        :player_id,
-        :stat_type,
-        :line_value,
-        :sportsbook,
-        :prop_date
+        :player_id, :stat_type, :line_value, :sportsbook, :prop_date
     )
     ON CONFLICT (player_id, stat_type, sportsbook, prop_date)
     DO UPDATE SET
@@ -240,15 +202,19 @@ def upsert_daily_props(rows: list[dict]) -> int:
     """
 
     with engine.begin() as conn:
-        conn.execute(text(upsert_sql), rows_to_write)
+        conn.execute(text(sql), rows_to_write)
 
     return len(rows_to_write)
 
 
-def load_daily_props_from_odds_api() -> None:
+# ======================
+# MAIN
+# ======================
+def load_daily_props_from_odds_api():
     events = fetch_today_events()
+
     if not events:
-        print("No NBA events found.")
+        print("❌ No events found")
         return
 
     all_rows = []
@@ -261,22 +227,23 @@ def load_daily_props_from_odds_api() -> None:
             continue
 
         try:
-            event_dt = datetime.fromisoformat(commence.replace("Z", "+00:00"))
-            prop_date = event_dt.date().isoformat()
+            prop_date = datetime.fromisoformat(commence.replace("Z", "+00:00")).date().isoformat()
 
             payload = fetch_event_props(event_id)
-            event_rows = extract_prop_rows(payload, prop_date)
+            rows = extract_prop_rows(payload, prop_date)
 
-            print(f"Event {event_id} -> extracted {len(event_rows)} props")
-            all_rows.extend(event_rows)
+            print(f"Event {event_id} -> {len(rows)} props")
+
+            all_rows.extend(rows)
 
         except Exception as e:
-            print(f"Failed to fetch props for event {event_id}: {e}")
+            print("❌ Failed event:", e)
 
-    print(f"Total rows collected before insert: {len(all_rows)}")
+    print("\nTOTAL ROWS:", len(all_rows))
 
     inserted = upsert_daily_props(all_rows)
-    print(f"Loaded {inserted} daily prop lines from Odds API.")
+
+    print(f"\n✅ FINAL INSERTED: {inserted}")
 
 
 if __name__ == "__main__":
