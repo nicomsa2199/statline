@@ -521,3 +521,168 @@ server closed the connection unexpectedly
   .apply(
 /Users/nicosommerabadia/statline/statline/src/predictions.py:258: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
   .apply(add_player_features)
+Traceback (most recent call last):
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 712, in checkout
+    rec = pool._do_get()
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 674, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 914, in __connect
+    )._exec_w_sync_on_first_run(self.dbapi_connection, self)
+      ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/event/attr.py", line 501, in _exec_w_sync_on_first_run
+    self(*args, **kw)
+    ~~~~^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/event/attr.py", line 515, in __call__
+    fn(*args, **kw)
+    ~~^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/create.py", line 745, in on_connect
+    do_on_connect(dbapi_connection)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 784, in on_connect
+    fn(dbapi_conn)
+    ~~^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 759, in on_connect
+    hstore_oids = self._hstore_oids(dbapi_conn)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 1172, in oneshot
+    result = fn(self, *args, **kw)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 835, in _hstore_oids
+    oids = extras.HstoreAdapter.get_oids(dbapi_connection)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/psycopg2/extras.py", line 907, in get_oids
+            curs.execute(f"""SELECT t.oid, {typarray}
+            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    FROM pg_type t JOIN pg_namespace ns
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        ON typnamespace = ns.oid
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    WHERE typname = 'hstore';
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/nicosommerabadia/statline/statline/src/refresh_all.py", line 12, in <module>
+    load_teams_and_players()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/src/ingest_players.py", line 46, in load_teams_and_players
+    with engine.begin() as conn:
+         ~~~~~~~~~~~~^^
+  File "/opt/anaconda3/lib/python3.13/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3257, in begin
+    with self.connect() as conn:
+         ~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        err, dialect, engine
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 712, in checkout
+    rec = pool._do_get()
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 674, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 914, in __connect
+    )._exec_w_sync_on_first_run(self.dbapi_connection, self)
+      ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/event/attr.py", line 501, in _exec_w_sync_on_first_run
+    self(*args, **kw)
+    ~~~~^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/event/attr.py", line 515, in __call__
+    fn(*args, **kw)
+    ~~^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/engine/create.py", line 745, in on_connect
+    do_on_connect(dbapi_connection)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 784, in on_connect
+    fn(dbapi_conn)
+    ~~^^^^^^^^^^^^
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 759, in on_connect
+    hstore_oids = self._hstore_oids(dbapi_conn)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 1172, in oneshot
+    result = fn(self, *args, **kw)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 835, in _hstore_oids
+    oids = extras.HstoreAdapter.get_oids(dbapi_connection)
+  File "/Users/nicosommerabadia/statline/statline/.venv/lib/python3.13/site-packages/psycopg2/extras.py", line 907, in get_oids
+            curs.execute(f"""SELECT t.oid, {typarray}
+            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    FROM pg_type t JOIN pg_namespace ns
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        ON typnamespace = ns.oid
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    WHERE typname = 'hstore';
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+/Users/nicosommerabadia/statline/statline/src/predictions.py:179: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(
+/Users/nicosommerabadia/statline/statline/src/predictions.py:258: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(add_player_features)
