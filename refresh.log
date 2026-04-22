@@ -5426,3 +5426,502 @@ Writing rows: 1386
 
 ✅ FINAL INSERTED: 1386
 Full NBA refresh complete.
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"273905d6a4ae9217ec0734b66a0eb28b","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-20T23:10:00Z","home_team":"Cleveland Cavaliers","away_team":"Toronto Raptors","bookmakers":[{"key":"draftkings","title":"DraftKings","last_update":"2026-04-20T14:10:11Z","markets":[{"k
+Events returned: 8
+
+EVENT 273905d6a4ae9217ec0734b66a0eb28b STATUS: 200
+EVENT 273905d6a4ae9217ec0734b66a0eb28b PREVIEW: {"id":"273905d6a4ae9217ec0734b66a0eb28b","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-20T23:10:00Z","home_team":"Cleveland Cavaliers","away_team":"Toronto Raptors","bookma
+Bookmakers found: 2
+Rows extracted: 184
+Event 273905d6a4ae9217ec0734b66a0eb28b -> 184 props
+
+EVENT a1b444bd00a27cbae3cf7ca3bf75a3f0 STATUS: 200
+EVENT a1b444bd00a27cbae3cf7ca3bf75a3f0 PREVIEW: {"id":"a1b444bd00a27cbae3cf7ca3bf75a3f0","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-21T00:10:00Z","home_team":"New York Knicks","away_team":"Atlanta Hawks","bookmakers":
+Bookmakers found: 2
+Rows extracted: 184
+Event a1b444bd00a27cbae3cf7ca3bf75a3f0 -> 184 props
+
+EVENT a52365fe7f7123df1c4220d9591a6da2 STATUS: 200
+EVENT a52365fe7f7123df1c4220d9591a6da2 PREVIEW: {"id":"a52365fe7f7123df1c4220d9591a6da2","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-21T02:40:00Z","home_team":"Denver Nuggets","away_team":"Minnesota Timberwolves","book
+Bookmakers found: 2
+Rows extracted: 194
+Event a52365fe7f7123df1c4220d9591a6da2 -> 194 props
+
+EVENT d1a7a6e7b024f888e922a62b14fcf466 STATUS: 200
+EVENT d1a7a6e7b024f888e922a62b14fcf466 PREVIEW: {"id":"d1a7a6e7b024f888e922a62b14fcf466","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-21T23:10:00Z","home_team":"Boston Celtics","away_team":"Philadelphia 76ers","bookmake
+Bookmakers found: 2
+Rows extracted: 160
+Event d1a7a6e7b024f888e922a62b14fcf466 -> 160 props
+
+EVENT 680084e4612c197a1cf4170d82ba6f10 STATUS: 200
+EVENT 680084e4612c197a1cf4170d82ba6f10 PREVIEW: {"id":"680084e4612c197a1cf4170d82ba6f10","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-22T00:00:00Z","home_team":"San Antonio Spurs","away_team":"Portland Trail Blazers","b
+Bookmakers found: 2
+Rows extracted: 186
+Event 680084e4612c197a1cf4170d82ba6f10 -> 186 props
+
+EVENT d3d28b764e5099920880de59a45e82cf STATUS: 200
+EVENT d3d28b764e5099920880de59a45e82cf PREVIEW: {"id":"d3d28b764e5099920880de59a45e82cf","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-22T02:40:00Z","home_team":"Los Angeles Lakers","away_team":"Houston Rockets","bookmak
+Bookmakers found: 2
+Rows extracted: 138
+Event d3d28b764e5099920880de59a45e82cf -> 138 props
+
+EVENT c9bc6bcae048283407d1cb53995eee8e STATUS: 200
+EVENT c9bc6bcae048283407d1cb53995eee8e PREVIEW: {"id":"c9bc6bcae048283407d1cb53995eee8e","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-22T23:00:00Z","home_team":"Detroit Pistons","away_team":"Orlando Magic","bookmakers":
+Bookmakers found: 2
+Rows extracted: 180
+Event c9bc6bcae048283407d1cb53995eee8e -> 180 props
+
+EVENT 0ce48ecb61f40bc3bd784adfe7f8e811 STATUS: 200
+EVENT 0ce48ecb61f40bc3bd784adfe7f8e811 PREVIEW: {"id":"0ce48ecb61f40bc3bd784adfe7f8e811","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-23T01:40:00Z","home_team":"Oklahoma City Thunder","away_team":"Phoenix Suns","bookmak
+Bookmakers found: 2
+Rows extracted: 170
+Event 0ce48ecb61f40bc3bd784adfe7f8e811 -> 170 props
+
+TOTAL ROWS: 1396
+Matched players: 1304
+Final matched: 1304
+Writing rows: 1304
+
+✅ FINAL INSERTED: 1304
+Full NBA refresh complete.
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+Failed loading NOP: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT player_id FROM players]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+API call failed (attempt 1/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+Failed loading DAL: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT player_id FROM players]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+Failed loading HOU: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO seasons (season_label)
+                VALUES (%(season_label)s)
+                ON CONFLICT (season_label) DO NOTHING
+            ]
+[parameters: {'season_label': '2025-26'}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading LAC...
+Failed loading LAC: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501199', 'season_id': 1, 'game_date': datetime.date(2026, 4, 12), 'team_id': 1610612746, 'opponent_team_id': 1610612744, 'matchup': 'LAC vs. GSW', 'home_or_away': 'Home', 'team_score': 115, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501183', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612746, 'opponent_team_id': 1610612757, 'matchup': 'LAC @ POR', 'home_or_away': 'Away', 'team_score': 97, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501163', 'season_id': 1, 'game_date': datetime.date(2026, 4, 8), 'team_id': 1610612746, 'opponent_team_id': 1610612760, 'matchup': 'LAC vs. OKC', 'home_or_away': 'Home', 'team_score': 110, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501156', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612746, 'opponent_team_id': 1610612742, 'matchup': 'LAC vs. DAL', 'home_or_away': 'Home', 'team_score': 116, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501141', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612746, 'opponent_team_id': 1610612758, 'matchup': 'LAC @ SAC', 'home_or_away': 'Away', 'team_score': 138, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501119', 'season_id': 1, 'game_date': datetime.date(2026, 4, 2), 'team_id': 1610612746, 'opponent_team_id': 1610612759, 'matchup': 'LAC vs. SAS', 'home_or_away': 'Home', 'team_score': 99, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501104', 'season_id': 1, 'game_date': datetime.date(2026, 3, 31), 'team_id': 1610612746, 'opponent_team_id': 1610612757, 'matchup': 'LAC vs. POR', 'home_or_away': 'Home', 'team_score': 104, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501082', 'season_id': 1, 'game_date': datetime.date(2026, 3, 29), 'team_id': 1610612746, 'opponent_team_id': 1610612749, 'matchup': 'LAC @ MIL', 'home_or_away': 'Away', 'team_score': 127, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 82 total bound parameter sets ...  {'game_id': '0022500099', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612746, 'opponent_team_id': 1610612756, 'matchup': 'LAC vs. PHX', 'home_or_away': 'Home', 'team_score': 129, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500087', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612746, 'opponent_team_id': 1610612762, 'matchup': 'LAC @ UTA', 'home_or_away': 'Away', 'team_score': 108, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading LAL...
+Failed loading LAL: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501198', 'season_id': 1, 'game_date': datetime.date(2026, 4, 12), 'team_id': 1610612747, 'opponent_team_id': 1610612762, 'matchup': 'LAL vs. UTA', 'home_or_away': 'Home', 'team_score': 131, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501185', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612747, 'opponent_team_id': 1610612756, 'matchup': 'LAL vs. PHX', 'home_or_away': 'Home', 'team_score': 101, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501170', 'season_id': 1, 'game_date': datetime.date(2026, 4, 9), 'team_id': 1610612747, 'opponent_team_id': 1610612744, 'matchup': 'LAL @ GSW', 'home_or_away': 'Away', 'team_score': 119, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501155', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612747, 'opponent_team_id': 1610612760, 'matchup': 'LAL vs. OKC', 'home_or_away': 'Home', 'team_score': 87, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501140', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612747, 'opponent_team_id': 1610612742, 'matchup': 'LAL @ DAL', 'home_or_away': 'Away', 'team_score': 128, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501116', 'season_id': 1, 'game_date': datetime.date(2026, 4, 2), 'team_id': 1610612747, 'opponent_team_id': 1610612760, 'matchup': 'LAL @ OKC', 'home_or_away': 'Away', 'team_score': 96, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501103', 'season_id': 1, 'game_date': datetime.date(2026, 3, 31), 'team_id': 1610612747, 'opponent_team_id': 1610612739, 'matchup': 'LAL vs. CLE', 'home_or_away': 'Home', 'team_score': 127, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501098', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612747, 'opponent_team_id': 1610612764, 'matchup': 'LAL vs. WAS', 'home_or_away': 'Home', 'team_score': 120, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 82 total bound parameter sets ...  {'game_id': '0022500019', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612747, 'opponent_team_id': 1610612750, 'matchup': 'LAL vs. MIN', 'home_or_away': 'Home', 'team_score': 128, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500002', 'season_id': 1, 'game_date': datetime.date(2025, 10, 21), 'team_id': 1610612747, 'opponent_team_id': 1610612744, 'matchup': 'LAL vs. GSW', 'home_or_away': 'Home', 'team_score': 109, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+API call failed (attempt 1/3): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+Failed loading MIN: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT player_id FROM players]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"d1a7a6e7b024f888e922a62b14fcf466","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-21T23:10:00Z","home_team":"Boston Celtics","away_team":"Philadelphia 76ers","bookmakers":[{"key":"draftkings","title":"DraftKings","last_update":"2026-04-21T14:49:20Z","markets":[{"key
+Events returned: 8
+
+EVENT d1a7a6e7b024f888e922a62b14fcf466 STATUS: 200
+EVENT d1a7a6e7b024f888e922a62b14fcf466 PREVIEW: {"id":"d1a7a6e7b024f888e922a62b14fcf466","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-21T23:10:00Z","home_team":"Boston Celtics","away_team":"Philadelphia 76ers","bookmake
+Bookmakers found: 2
+Rows extracted: 186
+Event d1a7a6e7b024f888e922a62b14fcf466 -> 186 props
+
+EVENT 680084e4612c197a1cf4170d82ba6f10 STATUS: 200
+EVENT 680084e4612c197a1cf4170d82ba6f10 PREVIEW: {"id":"680084e4612c197a1cf4170d82ba6f10","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-22T00:00:00Z","home_team":"San Antonio Spurs","away_team":"Portland Trail Blazers","b
+Bookmakers found: 2
+Rows extracted: 208
+Event 680084e4612c197a1cf4170d82ba6f10 -> 208 props
+
+EVENT d3d28b764e5099920880de59a45e82cf STATUS: 200
+EVENT d3d28b764e5099920880de59a45e82cf PREVIEW: {"id":"d3d28b764e5099920880de59a45e82cf","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-22T02:40:00Z","home_team":"Los Angeles Lakers","away_team":"Houston Rockets","bookmak
+Bookmakers found: 2
+Rows extracted: 180
+Event d3d28b764e5099920880de59a45e82cf -> 180 props
+
+EVENT c9bc6bcae048283407d1cb53995eee8e STATUS: 200
+EVENT c9bc6bcae048283407d1cb53995eee8e PREVIEW: {"id":"c9bc6bcae048283407d1cb53995eee8e","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-22T23:00:00Z","home_team":"Detroit Pistons","away_team":"Orlando Magic","bookmakers":
+Bookmakers found: 2
+Rows extracted: 180
+Event c9bc6bcae048283407d1cb53995eee8e -> 180 props
+
+EVENT 0ce48ecb61f40bc3bd784adfe7f8e811 STATUS: 200
+EVENT 0ce48ecb61f40bc3bd784adfe7f8e811 PREVIEW: {"id":"0ce48ecb61f40bc3bd784adfe7f8e811","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-23T01:40:00Z","home_team":"Oklahoma City Thunder","away_team":"Phoenix Suns","bookmak
+Bookmakers found: 2
+Rows extracted: 164
+Event 0ce48ecb61f40bc3bd784adfe7f8e811 -> 164 props
+
+EVENT b2b129565e14b8782b318b699b05ab3b STATUS: 200
+EVENT b2b129565e14b8782b318b699b05ab3b PREVIEW: {"id":"b2b129565e14b8782b318b699b05ab3b","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-23T23:00:00Z","home_team":"Atlanta Hawks","away_team":"New York Knicks","bookmakers":
+Bookmakers found: 2
+Rows extracted: 174
+Event b2b129565e14b8782b318b699b05ab3b -> 174 props
+
+EVENT b754568efb2036d7f3b661cc8093e66f STATUS: 200
+EVENT b754568efb2036d7f3b661cc8093e66f PREVIEW: {"id":"b754568efb2036d7f3b661cc8093e66f","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T00:10:00Z","home_team":"Toronto Raptors","away_team":"Cleveland Cavaliers","bookma
+Bookmakers found: 2
+Rows extracted: 146
+Event b754568efb2036d7f3b661cc8093e66f -> 146 props
+
+EVENT c548073cbcde990c77986a123bd2d5bd STATUS: 200
+EVENT c548073cbcde990c77986a123bd2d5bd PREVIEW: {"id":"c548073cbcde990c77986a123bd2d5bd","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T01:30:00Z","home_team":"Minnesota Timberwolves","away_team":"Denver Nuggets","book
+Bookmakers found: 2
+Rows extracted: 180
+Event c548073cbcde990c77986a123bd2d5bd -> 180 props
+
+TOTAL ROWS: 1418
+Matched players: 1298
+Final matched: 1298
+Writing rows: 1298
+
+✅ FINAL INSERTED: 1298
+Full NBA refresh complete.
+Teams that failed: ['NOP', 'DAL', 'HOU', 'LAC', 'LAL', 'MIN']
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"c9bc6bcae048283407d1cb53995eee8e","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-22T23:10:00Z","home_team":"Detroit Pistons","away_team":"Orlando Magic","bookmakers":[{"key":"fanduel","title":"FanDuel","last_update":"2026-04-22T13:56:40Z","markets":[{"key":"h2h","l
+Events returned: 8
+
+EVENT c9bc6bcae048283407d1cb53995eee8e STATUS: 200
+EVENT c9bc6bcae048283407d1cb53995eee8e PREVIEW: {"id":"c9bc6bcae048283407d1cb53995eee8e","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-22T23:10:00Z","home_team":"Detroit Pistons","away_team":"Orlando Magic","bookmakers":
+Bookmakers found: 2
+Rows extracted: 210
+Event c9bc6bcae048283407d1cb53995eee8e -> 210 props
+
+EVENT 0ce48ecb61f40bc3bd784adfe7f8e811 STATUS: 200
+EVENT 0ce48ecb61f40bc3bd784adfe7f8e811 PREVIEW: {"id":"0ce48ecb61f40bc3bd784adfe7f8e811","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-23T01:40:00Z","home_team":"Oklahoma City Thunder","away_team":"Phoenix Suns","bookmak
+Bookmakers found: 2
+Rows extracted: 174
+Event 0ce48ecb61f40bc3bd784adfe7f8e811 -> 174 props
+
+EVENT b2b129565e14b8782b318b699b05ab3b STATUS: 200
+EVENT b2b129565e14b8782b318b699b05ab3b PREVIEW: {"id":"b2b129565e14b8782b318b699b05ab3b","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-23T23:10:00Z","home_team":"Atlanta Hawks","away_team":"New York Knicks","bookmakers":
+Bookmakers found: 2
+Rows extracted: 192
+Event b2b129565e14b8782b318b699b05ab3b -> 192 props
+
+EVENT b754568efb2036d7f3b661cc8093e66f STATUS: 200
+EVENT b754568efb2036d7f3b661cc8093e66f PREVIEW: {"id":"b754568efb2036d7f3b661cc8093e66f","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T00:10:00Z","home_team":"Toronto Raptors","away_team":"Cleveland Cavaliers","bookma
+Bookmakers found: 2
+Rows extracted: 146
+Event b754568efb2036d7f3b661cc8093e66f -> 146 props
+
+EVENT c548073cbcde990c77986a123bd2d5bd STATUS: 200
+EVENT c548073cbcde990c77986a123bd2d5bd PREVIEW: {"id":"c548073cbcde990c77986a123bd2d5bd","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T01:30:00Z","home_team":"Minnesota Timberwolves","away_team":"Denver Nuggets","book
+Bookmakers found: 2
+Rows extracted: 180
+Event c548073cbcde990c77986a123bd2d5bd -> 180 props
+
+EVENT 8d8ab21ae69d529ee4bd01fb8ace8276 STATUS: 200
+EVENT 8d8ab21ae69d529ee4bd01fb8ace8276 PREVIEW: {"id":"8d8ab21ae69d529ee4bd01fb8ace8276","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T23:10:00Z","home_team":"Philadelphia 76ers","away_team":"Boston Celtics","bookmake
+Bookmakers found: 2
+Rows extracted: 182
+Event 8d8ab21ae69d529ee4bd01fb8ace8276 -> 182 props
+
+EVENT 5000a9f1dd7ba71de7ae6ceef836aa48 STATUS: 200
+EVENT 5000a9f1dd7ba71de7ae6ceef836aa48 PREVIEW: {"id":"5000a9f1dd7ba71de7ae6ceef836aa48","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-25T00:10:00Z","home_team":"Houston Rockets","away_team":"Los Angeles Lakers","bookmak
+Bookmakers found: 2
+Rows extracted: 168
+Event 5000a9f1dd7ba71de7ae6ceef836aa48 -> 168 props
+
+EVENT af4847d63733e67ddd02f2bafac8ea6f STATUS: 200
+EVENT af4847d63733e67ddd02f2bafac8ea6f PREVIEW: {"id":"af4847d63733e67ddd02f2bafac8ea6f","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-25T02:40:00Z","home_team":"Portland Trail Blazers","away_team":"San Antonio Spurs","b
+Bookmakers found: 2
+Rows extracted: 146
+Event af4847d63733e67ddd02f2bafac8ea6f -> 146 props
+
+TOTAL ROWS: 1398
+Matched players: 1278
+Final matched: 1278
+Writing rows: 1278
+
+✅ FINAL INSERTED: 1278
+Full NBA refresh complete.
