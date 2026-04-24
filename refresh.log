@@ -5925,3 +5925,254 @@ Writing rows: 1278
 
 ✅ FINAL INSERTED: 1278
 Full NBA refresh complete.
+/Users/nicosommerabadia/statline/statline/src/predictions.py:179: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(
+/Users/nicosommerabadia/statline/statline/src/predictions.py:258: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(add_player_features)
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"b2b129565e14b8782b318b699b05ab3b","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-23T23:10:00Z","home_team":"Atlanta Hawks","away_team":"New York Knicks","bookmakers":[{"key":"draftkings","title":"DraftKings","last_update":"2026-04-23T11:16:11Z","markets":[{"key":"h
+Events returned: 8
+
+EVENT b2b129565e14b8782b318b699b05ab3b STATUS: 200
+EVENT b2b129565e14b8782b318b699b05ab3b PREVIEW: {"id":"b2b129565e14b8782b318b699b05ab3b","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-23T23:10:00Z","home_team":"Atlanta Hawks","away_team":"New York Knicks","bookmakers":
+Bookmakers found: 2
+Rows extracted: 192
+Event b2b129565e14b8782b318b699b05ab3b -> 192 props
+
+EVENT b754568efb2036d7f3b661cc8093e66f STATUS: 200
+EVENT b754568efb2036d7f3b661cc8093e66f PREVIEW: {"id":"b754568efb2036d7f3b661cc8093e66f","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T00:10:00Z","home_team":"Toronto Raptors","away_team":"Cleveland Cavaliers","bookma
+Bookmakers found: 2
+Rows extracted: 192
+Event b754568efb2036d7f3b661cc8093e66f -> 192 props
+
+EVENT c548073cbcde990c77986a123bd2d5bd STATUS: 200
+EVENT c548073cbcde990c77986a123bd2d5bd PREVIEW: {"id":"c548073cbcde990c77986a123bd2d5bd","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T01:30:00Z","home_team":"Minnesota Timberwolves","away_team":"Denver Nuggets","book
+Bookmakers found: 2
+Rows extracted: 196
+Event c548073cbcde990c77986a123bd2d5bd -> 196 props
+
+EVENT 8d8ab21ae69d529ee4bd01fb8ace8276 STATUS: 200
+EVENT 8d8ab21ae69d529ee4bd01fb8ace8276 PREVIEW: {"id":"8d8ab21ae69d529ee4bd01fb8ace8276","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T23:10:00Z","home_team":"Philadelphia 76ers","away_team":"Boston Celtics","bookmake
+Bookmakers found: 2
+Rows extracted: 184
+Event 8d8ab21ae69d529ee4bd01fb8ace8276 -> 184 props
+
+EVENT 5000a9f1dd7ba71de7ae6ceef836aa48 STATUS: 200
+EVENT 5000a9f1dd7ba71de7ae6ceef836aa48 PREVIEW: {"id":"5000a9f1dd7ba71de7ae6ceef836aa48","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-25T00:10:00Z","home_team":"Houston Rockets","away_team":"Los Angeles Lakers","bookmak
+Bookmakers found: 2
+Rows extracted: 174
+Event 5000a9f1dd7ba71de7ae6ceef836aa48 -> 174 props
+
+EVENT af4847d63733e67ddd02f2bafac8ea6f STATUS: 200
+EVENT af4847d63733e67ddd02f2bafac8ea6f PREVIEW: {"id":"af4847d63733e67ddd02f2bafac8ea6f","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-25T02:40:00Z","home_team":"Portland Trail Blazers","away_team":"San Antonio Spurs","b
+Bookmakers found: 2
+Rows extracted: 168
+Event af4847d63733e67ddd02f2bafac8ea6f -> 168 props
+
+EVENT e480da9a1b9dacbed9120388db4f133f STATUS: 200
+EVENT e480da9a1b9dacbed9120388db4f133f PREVIEW: {"id":"e480da9a1b9dacbed9120388db4f133f","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-25T17:10:00Z","home_team":"Orlando Magic","away_team":"Detroit Pistons","bookmakers":
+Bookmakers found: 2
+Rows extracted: 160
+Event e480da9a1b9dacbed9120388db4f133f -> 160 props
+
+EVENT 9f41c322eb6aa09683dc241cacc31d7c STATUS: 200
+EVENT 9f41c322eb6aa09683dc241cacc31d7c PREVIEW: {"id":"9f41c322eb6aa09683dc241cacc31d7c","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-25T19:30:00Z","home_team":"Phoenix Suns","away_team":"Oklahoma City Thunder","bookmak
+Bookmakers found: 2
+Rows extracted: 104
+Event 9f41c322eb6aa09683dc241cacc31d7c -> 104 props
+
+TOTAL ROWS: 1370
+Matched players: 1240
+Final matched: 1240
+Writing rows: 1240
+
+✅ FINAL INSERTED: 1240
+Full NBA refresh complete.
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+API call failed (attempt 1/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"b2b129565e14b8782b318b699b05ab3b","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-23T23:10:00Z","home_team":"Atlanta Hawks","away_team":"New York Knicks","bookmakers":[{"key":"draftkings","title":"DraftKings","last_update":"2026-04-23T13:15:02Z","markets":[{"key":"h
+Events returned: 8
+
+EVENT b2b129565e14b8782b318b699b05ab3b STATUS: 200
+EVENT b2b129565e14b8782b318b699b05ab3b PREVIEW: {"id":"b2b129565e14b8782b318b699b05ab3b","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-23T23:10:00Z","home_team":"Atlanta Hawks","away_team":"New York Knicks","bookmakers":
+Bookmakers found: 2
+Rows extracted: 192
+Event b2b129565e14b8782b318b699b05ab3b -> 192 props
+
+EVENT b754568efb2036d7f3b661cc8093e66f STATUS: 200
+EVENT b754568efb2036d7f3b661cc8093e66f PREVIEW: {"id":"b754568efb2036d7f3b661cc8093e66f","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T00:10:00Z","home_team":"Toronto Raptors","away_team":"Cleveland Cavaliers","bookma
+Bookmakers found: 2
+Rows extracted: 198
+Event b754568efb2036d7f3b661cc8093e66f -> 198 props
+
+EVENT c548073cbcde990c77986a123bd2d5bd STATUS: 200
+EVENT c548073cbcde990c77986a123bd2d5bd PREVIEW: {"id":"c548073cbcde990c77986a123bd2d5bd","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T01:30:00Z","home_team":"Minnesota Timberwolves","away_team":"Denver Nuggets","book
+Bookmakers found: 2
+Rows extracted: 192
+Event c548073cbcde990c77986a123bd2d5bd -> 192 props
+
+EVENT 8d8ab21ae69d529ee4bd01fb8ace8276 STATUS: 200
+EVENT 8d8ab21ae69d529ee4bd01fb8ace8276 PREVIEW: {"id":"8d8ab21ae69d529ee4bd01fb8ace8276","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-24T23:10:00Z","home_team":"Philadelphia 76ers","away_team":"Boston Celtics","bookmake
+Bookmakers found: 2
+Rows extracted: 182
+Event 8d8ab21ae69d529ee4bd01fb8ace8276 -> 182 props
+
+EVENT 5000a9f1dd7ba71de7ae6ceef836aa48 STATUS: 200
+EVENT 5000a9f1dd7ba71de7ae6ceef836aa48 PREVIEW: {"id":"5000a9f1dd7ba71de7ae6ceef836aa48","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-25T00:10:00Z","home_team":"Houston Rockets","away_team":"Los Angeles Lakers","bookmak
+Bookmakers found: 2
+Rows extracted: 174
+Event 5000a9f1dd7ba71de7ae6ceef836aa48 -> 174 props
+
+EVENT af4847d63733e67ddd02f2bafac8ea6f STATUS: 200
+EVENT af4847d63733e67ddd02f2bafac8ea6f PREVIEW: {"id":"af4847d63733e67ddd02f2bafac8ea6f","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-25T02:40:00Z","home_team":"Portland Trail Blazers","away_team":"San Antonio Spurs","b
+Bookmakers found: 2
+Rows extracted: 172
+Event af4847d63733e67ddd02f2bafac8ea6f -> 172 props
+
+EVENT e480da9a1b9dacbed9120388db4f133f STATUS: 200
+EVENT e480da9a1b9dacbed9120388db4f133f PREVIEW: {"id":"e480da9a1b9dacbed9120388db4f133f","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-25T17:10:00Z","home_team":"Orlando Magic","away_team":"Detroit Pistons","bookmakers":
+Bookmakers found: 2
+Rows extracted: 160
+Event e480da9a1b9dacbed9120388db4f133f -> 160 props
+
+EVENT 9f41c322eb6aa09683dc241cacc31d7c STATUS: 200
+EVENT 9f41c322eb6aa09683dc241cacc31d7c PREVIEW: {"id":"9f41c322eb6aa09683dc241cacc31d7c","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-25T19:30:00Z","home_team":"Phoenix Suns","away_team":"Oklahoma City Thunder","bookmak
+Bookmakers found: 2
+Rows extracted: 106
+Event 9f41c322eb6aa09683dc241cacc31d7c -> 106 props
+
+TOTAL ROWS: 1376
+Matched players: 1250
+Final matched: 1250
+Writing rows: 1250
+
+✅ FINAL INSERTED: 1250
+Full NBA refresh complete.
