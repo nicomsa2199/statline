@@ -6563,3 +6563,95 @@ Writing rows: 1334
 ✅ FINAL INSERTED: 1334
 Full NBA refresh complete.
 Teams that failed: ['ATL', 'BOS']
+Teams and players loaded.
+Loading ATL...
+Failed loading ATL: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501189', 'season_id': 1, 'game_date': datetime.date(2026, 4, 12), 'team_id': 1610612737, 'opponent_team_id': 1610612748, 'matchup': 'ATL @ MIA', 'home_or_away': 'Away', 'team_score': 117, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501173', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612737, 'opponent_team_id': 1610612739, 'matchup': 'ATL vs. CLE', 'home_or_away': 'Home', 'team_score': 124, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501158', 'season_id': 1, 'game_date': datetime.date(2026, 4, 8), 'team_id': 1610612737, 'opponent_team_id': 1610612739, 'matchup': 'ATL @ CLE', 'home_or_away': 'Away', 'team_score': 116, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501143', 'season_id': 1, 'game_date': datetime.date(2026, 4, 6), 'team_id': 1610612737, 'opponent_team_id': 1610612752, 'matchup': 'ATL vs. NYK', 'home_or_away': 'Home', 'team_score': 105, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501122', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612737, 'opponent_team_id': 1610612751, 'matchup': 'ATL @ BKN', 'home_or_away': 'Away', 'team_score': 141, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501107', 'season_id': 1, 'game_date': datetime.date(2026, 4, 1), 'team_id': 1610612737, 'opponent_team_id': 1610612753, 'matchup': 'ATL @ ORL', 'home_or_away': 'Away', 'team_score': 130, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501092', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612737, 'opponent_team_id': 1610612738, 'matchup': 'ATL vs. BOS', 'home_or_away': 'Home', 'team_score': 112, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501078', 'season_id': 1, 'game_date': datetime.date(2026, 3, 28), 'team_id': 1610612737, 'opponent_team_id': 1610612758, 'matchup': 'ATL vs. SAC', 'home_or_away': 'Home', 'team_score': 123, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 82 total bound parameter sets ...  {'game_id': '0022500090', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612737, 'opponent_team_id': 1610612753, 'matchup': 'ATL @ ORL', 'home_or_away': 'Away', 'team_score': 111, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500082', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612737, 'opponent_team_id': 1610612761, 'matchup': 'ATL vs. TOR', 'home_or_away': 'Home', 'team_score': 118, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading BOS...
+Failed loading BOS: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading CLE...
+Failed loading CLE: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading NOP...
+Failed loading NOP: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading CHI...
+Failed loading CHI: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading DAL...
+Failed loading DAL: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading DEN...
+Failed loading DEN: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading GSW...
+Failed loading GSW: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading HOU...
+Failed loading HOU: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading LAC...
+Failed loading LAC: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading LAL...
+Failed loading LAL: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading MIA...
+Failed loading MIA: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
