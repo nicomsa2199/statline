@@ -54,10 +54,35 @@ def fetch_today_events():
     print("EVENTS PREVIEW:", resp.text[:300])
 
     resp.raise_for_status()
+
     events = resp.json()
 
-    print(f"Events returned: {len(events)}")
-    return events
+    print(f"Events returned from API: {len(events)}")
+
+    today_est = datetime.now(
+        ZoneInfo("America/New_York")
+    ).date()
+
+    filtered_events = []
+
+    for event in events:
+        commence = event.get("commence_time")
+
+        if not commence:
+            continue
+
+        event_dt = datetime.fromisoformat(
+            commence.replace("Z", "+00:00")
+        ).astimezone(
+            ZoneInfo("America/New_York")
+        )
+
+        if event_dt.date() == today_est:
+            filtered_events.append(event)
+
+    print(f"Filtered today events: {len(filtered_events)}")
+
+    return filtered_events
 
 
 def fetch_event_props(event_id):
