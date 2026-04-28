@@ -6823,3 +6823,127 @@ server closed the connection unexpectedly
             ]
 [parameters: [{'game_id': '0022501186', 'season_id': 1, 'game_date': datetime.date(2026, 4, 12), 'team_id': 1610612738, 'opponent_team_id': 1610612753, 'matchup': 'BOS vs. ORL', 'home_or_away': 'Home', 'team_score': 113, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501174', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612738, 'opponent_team_id': 1610612740, 'matchup': 'BOS vs. NOP', 'home_or_away': 'Home', 'team_score': 144, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501168', 'season_id': 1, 'game_date': datetime.date(2026, 4, 9), 'team_id': 1610612738, 'opponent_team_id': 1610612752, 'matchup': 'BOS @ NYK', 'home_or_away': 'Away', 'team_score': 106, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501149', 'season_id': 1, 'game_date': datetime.date(2026, 4, 7), 'team_id': 1610612738, 'opponent_team_id': 1610612766, 'matchup': 'BOS vs. CHA', 'home_or_away': 'Home', 'team_score': 113, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501132', 'season_id': 1, 'game_date': datetime.date(2026, 4, 5), 'team_id': 1610612738, 'opponent_team_id': 1610612761, 'matchup': 'BOS vs. TOR', 'home_or_away': 'Home', 'team_score': 115, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501126', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612738, 'opponent_team_id': 1610612749, 'matchup': 'BOS @ MIL', 'home_or_away': 'Away', 'team_score': 133, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501106', 'season_id': 1, 'game_date': datetime.date(2026, 4, 1), 'team_id': 1610612738, 'opponent_team_id': 1610612748, 'matchup': 'BOS @ MIA', 'home_or_away': 'Away', 'team_score': 147, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501092', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612738, 'opponent_team_id': 1610612737, 'matchup': 'BOS @ ATL', 'home_or_away': 'Away', 'team_score': 102, 'opponent_score': None, 'result': 'L'}  ... displaying 10 of 82 total bound parameter sets ...  {'game_id': '0022500018', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612738, 'opponent_team_id': 1610612752, 'matchup': 'BOS @ NYK', 'home_or_away': 'Away', 'team_score': 95, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022500083', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612738, 'opponent_team_id': 1610612755, 'matchup': 'BOS vs. PHI', 'home_or_away': 'Home', 'team_score': 116, 'opponent_score': None, 'result': 'L'}]]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading CLE...
+API call failed (attempt 1/3): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+Failed loading CLE: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT player_id FROM players]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"d749c50ad2a2660df91f9dc1b8e20d78","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-28T23:10:00Z","home_team":"Boston Celtics","away_team":"Philadelphia 76ers","bookmakers":[{"key":"fanduel","title":"FanDuel","last_update":"2026-04-28T15:18:41Z","markets":[{"key":"h2h
+Events returned: 7
+
+EVENT d749c50ad2a2660df91f9dc1b8e20d78 STATUS: 200
+EVENT d749c50ad2a2660df91f9dc1b8e20d78 PREVIEW: {"id":"d749c50ad2a2660df91f9dc1b8e20d78","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-28T23:10:00Z","home_team":"Boston Celtics","away_team":"Philadelphia 76ers","bookmake
+Bookmakers found: 2
+Rows extracted: 172
+Event d749c50ad2a2660df91f9dc1b8e20d78 -> 172 props
+
+EVENT 595b24bea54d0917338e4a51372398b3 STATUS: 200
+EVENT 595b24bea54d0917338e4a51372398b3 PREVIEW: {"id":"595b24bea54d0917338e4a51372398b3","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-29T00:10:00Z","home_team":"New York Knicks","away_team":"Atlanta Hawks","bookmakers":
+Bookmakers found: 2
+Rows extracted: 190
+Event 595b24bea54d0917338e4a51372398b3 -> 190 props
+
+EVENT f61ea629819d5176316c94a379c02ad2 STATUS: 200
+EVENT f61ea629819d5176316c94a379c02ad2 PREVIEW: {"id":"f61ea629819d5176316c94a379c02ad2","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-29T01:40:00Z","home_team":"San Antonio Spurs","away_team":"Portland Trail Blazers","b
+Bookmakers found: 2
+Rows extracted: 176
+Event f61ea629819d5176316c94a379c02ad2 -> 176 props
+
+EVENT 912bee9cc9d36b6017819f012c0c56f1 STATUS: 200
+EVENT 912bee9cc9d36b6017819f012c0c56f1 PREVIEW: {"id":"912bee9cc9d36b6017819f012c0c56f1","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-29T23:10:00Z","home_team":"Detroit Pistons","away_team":"Orlando Magic","bookmakers":
+Bookmakers found: 2
+Rows extracted: 172
+Event 912bee9cc9d36b6017819f012c0c56f1 -> 172 props
+
+EVENT 6fa2ebdc614d327bc9a4558541adcd30 STATUS: 200
+EVENT 6fa2ebdc614d327bc9a4558541adcd30 PREVIEW: {"id":"6fa2ebdc614d327bc9a4558541adcd30","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-29T23:40:00Z","home_team":"Cleveland Cavaliers","away_team":"Toronto Raptors","bookma
+Bookmakers found: 2
+Rows extracted: 190
+Event 6fa2ebdc614d327bc9a4558541adcd30 -> 190 props
+
+EVENT 0d0aa62d4305ee094389473b308ce0bd STATUS: 200
+EVENT 0d0aa62d4305ee094389473b308ce0bd PREVIEW: {"id":"0d0aa62d4305ee094389473b308ce0bd","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-30T02:10:00Z","home_team":"Los Angeles Lakers","away_team":"Houston Rockets","bookmak
+Bookmakers found: 2
+Rows extracted: 160
+Event 0d0aa62d4305ee094389473b308ce0bd -> 160 props
+
+EVENT b981ac0f551b6f109cd18fa31de439b4 STATUS: 200
+EVENT b981ac0f551b6f109cd18fa31de439b4 PREVIEW: {"id":"b981ac0f551b6f109cd18fa31de439b4","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-05-01T02:10:00Z","home_team":"Minnesota Timberwolves","away_team":"Denver Nuggets","book
+Bookmakers found: 2
+Rows extracted: 144
+Event b981ac0f551b6f109cd18fa31de439b4 -> 144 props
+
+TOTAL ROWS: 1204
+Matched players: 1100
+Unmatched player names from Odds API:
+['C.J. McCollum', 'Isaiah Stewart II', 'Jabari Smith Jr', 'Kelly Oubre Jr', 'Nikola Jokic', 'Nikola Vucevic', 'R.J. Barrett', 'Robert Williams', 'Wendell Carter Jr']
+Final matched: 1100
+Writing rows: 1100
+
+FINAL INSERTED: 1100
+Full NBA refresh complete.
+Teams that failed: ['ATL', 'BOS', 'CLE']

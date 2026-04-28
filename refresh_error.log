@@ -948,3 +948,7 @@ Traceback (most recent call last):
 sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "ep-misty-firefly-a8mipe7f-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: ERROR:  Your account or project has exceeded the compute time quota. Upgrade your plan to increase limits.
 
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
+/Users/nicosommerabadia/statline/statline/src/predictions.py:179: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(
+/Users/nicosommerabadia/statline/statline/src/predictions.py:258: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(add_player_features)
