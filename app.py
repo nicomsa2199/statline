@@ -969,7 +969,10 @@ def load_daily_prop_edges():
         ON dpl.player_id = p.player_id
     LEFT JOIN teams t
         ON p.team_id = t.team_id
-    WHERE dpl.prop_date = CURRENT_DATE
+   WHERE dpl.prop_date = (
+    SELECT MAX(prop_date)
+    FROM daily_prop_lines
+)
     """
     try:
         df = pd.read_sql(text(q), engine)
