@@ -6947,3 +6947,199 @@ Writing rows: 1100
 FINAL INSERTED: 1100
 Full NBA refresh complete.
 Teams that failed: ['ATL', 'BOS', 'CLE']
+/Users/nicosommerabadia/statline/statline/src/predictions.py:179: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(
+/Users/nicosommerabadia/statline/statline/src/predictions.py:258: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(add_player_features)
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"912bee9cc9d36b6017819f012c0c56f1","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-29T23:10:00Z","home_team":"Detroit Pistons","away_team":"Orlando Magic","bookmakers":[{"key":"draftkings","title":"DraftKings","last_update":"2026-04-29T11:15:19Z","markets":[{"key":"h
+Events returned from API: 6
+Filtered today events: 3
+
+EVENT 912bee9cc9d36b6017819f012c0c56f1 STATUS: 200
+EVENT 912bee9cc9d36b6017819f012c0c56f1 PREVIEW: {"id":"912bee9cc9d36b6017819f012c0c56f1","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-29T23:10:00Z","home_team":"Detroit Pistons","away_team":"Orlando Magic","bookmakers":
+Bookmakers found: 2
+Rows extracted: 188
+Event 912bee9cc9d36b6017819f012c0c56f1 -> 188 props
+
+EVENT 6fa2ebdc614d327bc9a4558541adcd30 STATUS: 200
+EVENT 6fa2ebdc614d327bc9a4558541adcd30 PREVIEW: {"id":"6fa2ebdc614d327bc9a4558541adcd30","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-29T23:40:00Z","home_team":"Cleveland Cavaliers","away_team":"Toronto Raptors","bookma
+Bookmakers found: 2
+Rows extracted: 194
+Event 6fa2ebdc614d327bc9a4558541adcd30 -> 194 props
+
+EVENT 0d0aa62d4305ee094389473b308ce0bd STATUS: 200
+EVENT 0d0aa62d4305ee094389473b308ce0bd PREVIEW: {"id":"0d0aa62d4305ee094389473b308ce0bd","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-30T02:10:00Z","home_team":"Los Angeles Lakers","away_team":"Houston Rockets","bookmak
+Bookmakers found: 2
+Rows extracted: 182
+Event 0d0aa62d4305ee094389473b308ce0bd -> 182 props
+
+TOTAL ROWS: 564
+Matched players: 514
+Unmatched player names from Odds API:
+['Isaiah Stewart II', 'Jabari Smith Jr', 'R.J. Barrett', 'Wendell Carter Jr']
+Final matched: 514
+Writing rows: 514
+
+FINAL INSERTED: 514
+Full NBA refresh complete.
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"912bee9cc9d36b6017819f012c0c56f1","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-29T23:10:00Z","home_team":"Detroit Pistons","away_team":"Orlando Magic","bookmakers":[{"key":"draftkings","title":"DraftKings","last_update":"2026-04-29T13:15:55Z","markets":[{"key":"h
+Events returned from API: 6
+Filtered today events: 3
+
+EVENT 912bee9cc9d36b6017819f012c0c56f1 STATUS: 200
+EVENT 912bee9cc9d36b6017819f012c0c56f1 PREVIEW: {"id":"912bee9cc9d36b6017819f012c0c56f1","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-29T23:10:00Z","home_team":"Detroit Pistons","away_team":"Orlando Magic","bookmakers":
+Bookmakers found: 2
+Rows extracted: 188
+Event 912bee9cc9d36b6017819f012c0c56f1 -> 188 props
+
+EVENT 6fa2ebdc614d327bc9a4558541adcd30 STATUS: 200
+EVENT 6fa2ebdc614d327bc9a4558541adcd30 PREVIEW: {"id":"6fa2ebdc614d327bc9a4558541adcd30","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-29T23:40:00Z","home_team":"Cleveland Cavaliers","away_team":"Toronto Raptors","bookma
+Bookmakers found: 2
+Rows extracted: 194
+Event 6fa2ebdc614d327bc9a4558541adcd30 -> 194 props
+
+EVENT 0d0aa62d4305ee094389473b308ce0bd STATUS: 200
+EVENT 0d0aa62d4305ee094389473b308ce0bd PREVIEW: {"id":"0d0aa62d4305ee094389473b308ce0bd","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-04-30T02:10:00Z","home_team":"Los Angeles Lakers","away_team":"Houston Rockets","bookmak
+Bookmakers found: 2
+Rows extracted: 182
+Event 0d0aa62d4305ee094389473b308ce0bd -> 182 props
+
+TOTAL ROWS: 564
+Matched players: 514
+Unmatched player names from Odds API:
+['Isaiah Stewart II', 'Jabari Smith Jr', 'R.J. Barrett', 'Wendell Carter Jr']
+Final matched: 514
+Writing rows: 514
+
+FINAL INSERTED: 514
+Full NBA refresh complete.
