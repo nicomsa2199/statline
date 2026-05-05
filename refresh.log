@@ -7758,3 +7758,333 @@ Writing rows: 312
 FINAL INSERTED: 312
 Full NBA refresh complete.
 Teams that failed: ['ATL', 'BOS', 'MIA', 'MIL', 'MIN']
+/Users/nicosommerabadia/statline/statline/src/predictions.py:179: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(
+/Users/nicosommerabadia/statline/statline/src/predictions.py:258: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(add_player_features)
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"b11391b35b7a0cf79deeef3bb3eb9009","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-05-05T00:10:00Z","home_team":"New York Knicks","away_team":"Philadelphia 76ers","bookmakers":[{"key":"draftkings","title":"DraftKings","last_update":"2026-05-04T11:17:02Z","markets":[{"ke
+Events returned from API: 4
+Filtered today events: 2
+
+EVENT b11391b35b7a0cf79deeef3bb3eb9009 STATUS: 200
+EVENT b11391b35b7a0cf79deeef3bb3eb9009 PREVIEW: {"id":"b11391b35b7a0cf79deeef3bb3eb9009","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-05-05T00:10:00Z","home_team":"New York Knicks","away_team":"Philadelphia 76ers","bookmak
+Bookmakers found: 2
+Rows extracted: 198
+Event b11391b35b7a0cf79deeef3bb3eb9009 -> 198 props
+
+EVENT 219920e3a715ceb3dc69f3638f7571d5 STATUS: 200
+EVENT 219920e3a715ceb3dc69f3638f7571d5 PREVIEW: {"id":"219920e3a715ceb3dc69f3638f7571d5","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-05-05T01:40:00Z","home_team":"San Antonio Spurs","away_team":"Minnesota Timberwolves","b
+Bookmakers found: 2
+Rows extracted: 184
+Event 219920e3a715ceb3dc69f3638f7571d5 -> 184 props
+
+TOTAL ROWS: 382
+Matched players: 368
+Unmatched player names from Odds API:
+['Kelly Oubre Jr']
+Final matched: 368
+Writing rows: 368
+
+FINAL INSERTED: 368
+Full NBA refresh complete.
+Teams and players loaded.
+Loading ATL...
+ATL games and player logs loaded.
+Loading BOS...
+BOS games and player logs loaded.
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+API call failed (attempt 1/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"b11391b35b7a0cf79deeef3bb3eb9009","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-05-05T00:10:00Z","home_team":"New York Knicks","away_team":"Philadelphia 76ers","bookmakers":[{"key":"draftkings","title":"DraftKings","last_update":"2026-05-04T13:15:49Z","markets":[{"ke
+Events returned from API: 4
+Filtered today events: 2
+
+EVENT b11391b35b7a0cf79deeef3bb3eb9009 STATUS: 200
+EVENT b11391b35b7a0cf79deeef3bb3eb9009 PREVIEW: {"id":"b11391b35b7a0cf79deeef3bb3eb9009","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-05-05T00:10:00Z","home_team":"New York Knicks","away_team":"Philadelphia 76ers","bookmak
+Bookmakers found: 2
+Rows extracted: 200
+Event b11391b35b7a0cf79deeef3bb3eb9009 -> 200 props
+
+EVENT 219920e3a715ceb3dc69f3638f7571d5 STATUS: 200
+EVENT 219920e3a715ceb3dc69f3638f7571d5 PREVIEW: {"id":"219920e3a715ceb3dc69f3638f7571d5","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-05-05T01:40:00Z","home_team":"San Antonio Spurs","away_team":"Minnesota Timberwolves","b
+Bookmakers found: 2
+Rows extracted: 184
+Event 219920e3a715ceb3dc69f3638f7571d5 -> 184 props
+
+TOTAL ROWS: 384
+Matched players: 370
+Unmatched player names from Odds API:
+['Kelly Oubre Jr']
+Final matched: 370
+Writing rows: 370
+
+FINAL INSERTED: 370
+Full NBA refresh complete.
+Teams and players loaded.
+Loading ATL...
+Failed loading ATL: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: 
+                INSERT INTO games (
+                    game_id,
+                    season_id,
+                    game_date,
+                    team_id,
+                    opponent_team_id,
+                    matchup,
+                    home_or_away,
+                    team_score,
+                    opponent_score,
+                    result
+                )
+                VALUES (
+                    %(game_id)s,
+                    %(season_id)s,
+                    %(game_date)s,
+                    %(team_id)s,
+                    %(opponent_team_id)s,
+                    %(matchup)s,
+                    %(home_or_away)s,
+                    %(team_score)s,
+                    %(opponent_score)s,
+                    %(result)s
+                )
+                ON CONFLICT (game_id, team_id) DO UPDATE
+                SET
+                    season_id = EXCLUDED.season_id,
+                    game_date = EXCLUDED.game_date,
+                    opponent_team_id = EXCLUDED.opponent_team_id,
+                    matchup = EXCLUDED.matchup,
+                    home_or_away = EXCLUDED.home_or_away,
+                    team_score = EXCLUDED.team_score,
+                    result = EXCLUDED.result,
+                    opponent_score = COALESCE(EXCLUDED.opponent_score, games.opponent_score),
+                    last_updated = CURRENT_TIMESTAMP
+            ]
+[parameters: [{'game_id': '0022501189', 'season_id': 1, 'game_date': datetime.date(2026, 4, 12), 'team_id': 1610612737, 'opponent_team_id': 1610612748, 'matchup': 'ATL @ MIA', 'home_or_away': 'Away', 'team_score': 117, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501173', 'season_id': 1, 'game_date': datetime.date(2026, 4, 10), 'team_id': 1610612737, 'opponent_team_id': 1610612739, 'matchup': 'ATL vs. CLE', 'home_or_away': 'Home', 'team_score': 124, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501158', 'season_id': 1, 'game_date': datetime.date(2026, 4, 8), 'team_id': 1610612737, 'opponent_team_id': 1610612739, 'matchup': 'ATL @ CLE', 'home_or_away': 'Away', 'team_score': 116, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501143', 'season_id': 1, 'game_date': datetime.date(2026, 4, 6), 'team_id': 1610612737, 'opponent_team_id': 1610612752, 'matchup': 'ATL vs. NYK', 'home_or_away': 'Home', 'team_score': 105, 'opponent_score': None, 'result': 'L'}, {'game_id': '0022501122', 'season_id': 1, 'game_date': datetime.date(2026, 4, 3), 'team_id': 1610612737, 'opponent_team_id': 1610612751, 'matchup': 'ATL @ BKN', 'home_or_away': 'Away', 'team_score': 141, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501107', 'season_id': 1, 'game_date': datetime.date(2026, 4, 1), 'team_id': 1610612737, 'opponent_team_id': 1610612753, 'matchup': 'ATL @ ORL', 'home_or_away': 'Away', 'team_score': 130, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501092', 'season_id': 1, 'game_date': datetime.date(2026, 3, 30), 'team_id': 1610612737, 'opponent_team_id': 1610612738, 'matchup': 'ATL vs. BOS', 'home_or_away': 'Home', 'team_score': 112, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022501078', 'season_id': 1, 'game_date': datetime.date(2026, 3, 28), 'team_id': 1610612737, 'opponent_team_id': 1610612758, 'matchup': 'ATL vs. SAC', 'home_or_away': 'Home', 'team_score': 123, 'opponent_score': None, 'result': 'W'}  ... displaying 10 of 82 total bound parameter sets ...  {'game_id': '0022500090', 'season_id': 1, 'game_date': datetime.date(2025, 10, 24), 'team_id': 1610612737, 'opponent_team_id': 1610612753, 'matchup': 'ATL @ ORL', 'home_or_away': 'Away', 'team_score': 111, 'opponent_score': None, 'result': 'W'}, {'game_id': '0022500082', 'season_id': 1, 'game_date': datetime.date(2025, 10, 22), 'team_id': 1610612737, 'opponent_team_id': 1610612761, 'matchup': 'ATL vs. TOR', 'home_or_away': 'Home', 'team_score': 118, 'opponent_score': None, 'result': 'L'}]]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading BOS...
+API call failed (attempt 1/3): HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+Failed loading BOS: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT player_id FROM players]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Loading CLE...
+CLE games and player logs loaded.
+Loading NOP...
+NOP games and player logs loaded.
+Loading CHI...
+CHI games and player logs loaded.
+Loading DAL...
+DAL games and player logs loaded.
+Loading DEN...
+DEN games and player logs loaded.
+Loading GSW...
+GSW games and player logs loaded.
+Loading HOU...
+HOU games and player logs loaded.
+Loading LAC...
+LAC games and player logs loaded.
+Loading LAL...
+LAL games and player logs loaded.
+Loading MIA...
+MIA games and player logs loaded.
+Loading MIL...
+MIL games and player logs loaded.
+Loading MIN...
+MIN games and player logs loaded.
+Loading BKN...
+BKN games and player logs loaded.
+Loading NYK...
+NYK games and player logs loaded.
+Loading ORL...
+ORL games and player logs loaded.
+Loading IND...
+IND games and player logs loaded.
+Loading PHI...
+PHI games and player logs loaded.
+Loading PHX...
+PHX games and player logs loaded.
+Loading POR...
+POR games and player logs loaded.
+Loading SAC...
+SAC games and player logs loaded.
+Loading SAS...
+SAS games and player logs loaded.
+Loading OKC...
+OKC games and player logs loaded.
+Loading TOR...
+TOR games and player logs loaded.
+Loading UTA...
+UTA games and player logs loaded.
+Loading MEM...
+MEM games and player logs loaded.
+Loading WAS...
+WAS games and player logs loaded.
+Loading DET...
+DET games and player logs loaded.
+Loading CHA...
+CHA games and player logs loaded.
+Rebuilt aggregated_stats for 525 players.
+Rebuilt player_efficiency for 525 players.
+Rebuilt player predictions for 525 players.
+EVENTS STATUS: 200
+EVENTS PREVIEW: [{"id":"0d7933fbc3dd3e384f9b709cff4e882c","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-05-05T23:10:00Z","home_team":"Detroit Pistons","away_team":"Cleveland Cavaliers","bookmakers":[{"key":"fanduel","title":"FanDuel","last_update":"2026-05-05T14:42:46Z","markets":[{"key":"h
+Events returned from API: 4
+Filtered today events: 2
+
+EVENT 0d7933fbc3dd3e384f9b709cff4e882c STATUS: 200
+EVENT 0d7933fbc3dd3e384f9b709cff4e882c PREVIEW: {"id":"0d7933fbc3dd3e384f9b709cff4e882c","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-05-05T23:10:00Z","home_team":"Detroit Pistons","away_team":"Cleveland Cavaliers","bookma
+Bookmakers found: 2
+Rows extracted: 172
+Event 0d7933fbc3dd3e384f9b709cff4e882c -> 172 props
+
+EVENT 689b4554b0b10e67f46872eb2e74b98d STATUS: 200
+EVENT 689b4554b0b10e67f46872eb2e74b98d PREVIEW: {"id":"689b4554b0b10e67f46872eb2e74b98d","sport_key":"basketball_nba","sport_title":"NBA","commence_time":"2026-05-06T00:40:00Z","home_team":"Oklahoma City Thunder","away_team":"Los Angeles Lakers","b
+Bookmakers found: 2
+Rows extracted: 208
+Event 689b4554b0b10e67f46872eb2e74b98d -> 208 props
+
+TOTAL ROWS: 380
+Matched players: 372
+Unmatched player names from Odds API:
+['Isaiah Stewart II']
+Final matched: 372
+Writing rows: 372
+
+FINAL INSERTED: 372
+Full NBA refresh complete.
+Teams that failed: ['ATL', 'BOS']
